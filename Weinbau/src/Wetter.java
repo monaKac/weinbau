@@ -5,16 +5,18 @@ public class Wetter {
 	private int id;
 	private double temp;
 	private double sonnenstunden; 
-	private int bewoelkung; 
+	private Bewoelkung bewoelkung; 
 	private Weinberg weinberg; 
 	
-	public void Wetter(int datum, Weinberg weinberg) {
+	
+	
+	public Wetter(int datum, Weinberg weinberg) {
 		this.datum = datum;
 		this.weinberg = weinberg; 
 		//this.id = Methode zum id generieren;
 	}
 	
-	public void Wetter(int datum, Weinberg weinberg, double temp, double wind, double sonnenstunden, int bewoelkung) {
+	public Wetter(int datum, Weinberg weinberg, double temp, double wind, double sonnenstunden, Bewoelkung bewoelkung) {
 		this.datum = datum;
 		this.weinberg = weinberg; 
 		//this.id = Methode zum id generieren;
@@ -25,6 +27,9 @@ public class Wetter {
 	}
 	
 	
+	public int getDatum() {
+		return datum;
+	}
 	
 	public double getWind() {
 		return wind;
@@ -44,10 +49,10 @@ public class Wetter {
 	public void setSonnenstunden(double sonnenstunden) {
 		this.sonnenstunden = sonnenstunden;
 	}
-	public int getBewoelkung() {
+	public Bewoelkung getBewoelkung() {
 		return bewoelkung;
 	}
-	public void setBewoelkung(int bewoelkung) {
+	public void setBewoelkung(Bewoelkung bewoelkung) {
 		this.bewoelkung = bewoelkung;
 	}
 	public Weinberg getWeinberg() {
