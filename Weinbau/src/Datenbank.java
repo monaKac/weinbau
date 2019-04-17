@@ -37,6 +37,8 @@ public class Datenbank {
 				double temp = Math.random() * 8 + 23;
 				double wind = Math.random() * 40;
 				int sonnenstunden = (int) (Math.random() * 8 + 6);
+				int regenwahrscheinlichkeit = (int) (Math.random() * 100);
+				int niederschlag =  (int) (Math.random() * 40000);
 				int rnd = (int) (Math.random() * 3);
 				Bewoelkung b = Bewoelkung.LEICHT;
 				switch (rnd) {
@@ -50,7 +52,7 @@ public class Datenbank {
 					b = Bewoelkung.STARK;
 					break;
 				}
-				wetterDaten.add(new Wetter(d, weinberg, temp, wind, sonnenstunden, b));
+				wetterDaten.add(new Wetter(d, weinberg, temp, wind, sonnenstunden, b, regenwahrscheinlichkeit, niederschlag));
 			}
 		}
 	}
