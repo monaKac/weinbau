@@ -5,12 +5,14 @@ public class Empfehlung {
 	int bewaesserungsmenge; 
 	int duengen; 
 	int pflanzenschutz; 
+	Weinbergstatus empfehlungsStatus; 
 	String text; 
 	Weinberg weinberg; //aktueller Weinberg
 	int datum;  // aktuelles Datum 
 	
 	public Empfehlung(Weinberg weinberg, int datum) {
 		this.weinberg = weinberg; 
+		this.empfehlungsStatus = weinberg.getStatus().getWeinbergstatus(); 
 		this.datum = datum; 
 		berechneEmpfehlung(); 
 	}
@@ -53,6 +55,10 @@ public class Empfehlung {
             //DO
         } 
 		
+	}
+	
+	public Weinbergstatus getEmpfehlungsstatus() {
+		return this.empfehlungsStatus; 
 	}
 	
 	public String getText() {
