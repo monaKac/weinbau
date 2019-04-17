@@ -1,6 +1,7 @@
 
 public class Weinberg {
 	private int id;
+	private static int nextId = 1; 
 	private Winzer winzer; 
 	private int bodenfeuchtigkeit; //zwischen 0 und 100 
 	private Status status;
@@ -11,6 +12,8 @@ public class Weinberg {
 		this.setWinzer(winzer);
 		this.status = status; 
 		this.bodenfeuchtigkeit = 0; 
+		this.id = nextId; 
+		nextId++; 
 		
 	}
 	
@@ -19,6 +22,8 @@ public class Weinberg {
 		this.setWinzer(winzer);
 		this.status = status; 
 		this.bodenfeuchtigkeit = bodenfeuchtigkeit; 
+		this.id = nextId; 
+		nextId++; 
 	}
 	
 	

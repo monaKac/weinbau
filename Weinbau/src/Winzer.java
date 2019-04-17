@@ -2,7 +2,7 @@ import java.util.ArrayList;
 
 public class Winzer {
 	
-	private static int nextId = 0;
+	private static int nextId = 1;
 	private int id; 
 	private String vorname;
 	private String nachname;
@@ -11,8 +11,9 @@ public class Winzer {
 	
 	public Winzer(String vorname, String nachname) {
 		//set id this.id = ; 
-		nextId++; 
+		
 		this.id = nextId; 
+		nextId++; 
 		this.vorname = vorname;
 		this.nachname = nachname;
 		weinberge = new ArrayList<>();

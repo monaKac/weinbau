@@ -3,6 +3,7 @@ public class Wetter {
 	private int datum;
 	private double wind;
 	private int id;
+	private static int nextId = 1; 
 	private double temp;
 	private double sonnenstunden; 
 	private Bewoelkung bewoelkung; 
@@ -22,7 +23,8 @@ public class Wetter {
 	public Wetter(int datum, Weinberg weinberg, double temp, double wind, double sonnenstunden, int regenwahrscheinlichkeit, int niederschlag) {
 		this.datum = datum;
 		this.weinberg = weinberg; 
-		//this.id = Methode zum id generieren;
+		this.id = nextId;
+		nextId++;
 		this.temp = temp; 
 		this.wind = wind; 
 		this.sonnenstunden = sonnenstunden; 
@@ -100,5 +102,11 @@ public class Wetter {
 		}
 		
 	}
+
+	public int getId() {
+		return id;
+	}
+
+
 	
 }
