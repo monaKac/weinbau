@@ -38,7 +38,7 @@ public class Datenbank {
 				double wind = Math.random() * 40;
 				int sonnenstunden = (int) (Math.random() * 8 + 6);
 				int regenwahrscheinlichkeit = (int) (Math.random() * 100);
-				int niederschlag =  (int) (Math.random() * 40000);
+				int niederschlag =  (int) (Math.random() * 13000);
 				int rnd = (int) (Math.random() * 3);
 				Bewoelkung b = Bewoelkung.LEICHT;
 				switch (rnd) {
