@@ -2,7 +2,7 @@
 public class Weinberg {
 	private int id;
 	private Winzer winzer; 
-	private double bodenfeuchtigkeit; 
+	private int bodenfeuchtigkeit; //zwischen 0 und 100 
 	private Status status;
 	
 	
@@ -10,11 +10,11 @@ public class Weinberg {
 		//this.id = //Methode um unique id zu generieren 
 		this.setWinzer(winzer);
 		this.status = status; 
-		this.bodenfeuchtigkeit = 0.0; 
+		this.bodenfeuchtigkeit = 0; 
 		
 	}
 	
-	public Weinberg(Winzer winzer, Status status, double bodenfeuchtigkeit) {
+	public Weinberg(Winzer winzer, Status status, int bodenfeuchtigkeit) {
 		//this.id = //Methode um unique id zu generieren 
 		this.setWinzer(winzer);
 		this.status = status; 
@@ -23,10 +23,10 @@ public class Weinberg {
 	
 	
 	
-	public double getBodenfeuchtigkeit() {
+	public int getBodenfeuchtigkeit() {
 		return bodenfeuchtigkeit;
 	}
-	public void setBodenfeuchtigkeit(double bodenfeuchtigkeit) {
+	public void setBodenfeuchtigkeit(int bodenfeuchtigkeit) {
 		this.bodenfeuchtigkeit = bodenfeuchtigkeit;
 	}
 	public Status getStatus() {
