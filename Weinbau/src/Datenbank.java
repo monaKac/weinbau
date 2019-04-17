@@ -38,21 +38,8 @@ public class Datenbank {
 				double wind = Math.random() * 40;
 				int sonnenstunden = (int) (Math.random() * 8 + 6);
 				int regenwahrscheinlichkeit = (int) (Math.random() * 100);
-				int niederschlag =  (int) (Math.random() * 13000);
-				int rnd = (int) (Math.random() * 3);
-				Bewoelkung b = Bewoelkung.LEICHT;
-				switch (rnd) {
-				case 0:
-					b = Bewoelkung.LEICHT;
-					break;
-				case 1:
-					b = Bewoelkung.MITTEL;
-					break;
-				case 2:
-					b = Bewoelkung.STARK;
-					break;
-				}
-				wetterDaten.add(new Wetter(d, weinberg, temp, wind, sonnenstunden, b, regenwahrscheinlichkeit, niederschlag));
+				int niederschlag =  (int) (Math.random() * 13000);				
+				wetterDaten.add(new Wetter(d, weinberg, temp, wind, sonnenstunden, regenwahrscheinlichkeit, niederschlag));
 			}
 		}
 	}

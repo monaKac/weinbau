@@ -19,16 +19,16 @@ public class Wetter {
 		//this.id = Methode zum id generieren;
 	}
 	
-	public Wetter(int datum, Weinberg weinberg, double temp, double wind, double sonnenstunden, Bewoelkung bewoelkung, int regenwahrscheinlichkeit, int niederschlag) {
+	public Wetter(int datum, Weinberg weinberg, double temp, double wind, double sonnenstunden, int regenwahrscheinlichkeit, int niederschlag) {
 		this.datum = datum;
 		this.weinberg = weinberg; 
 		//this.id = Methode zum id generieren;
 		this.temp = temp; 
 		this.wind = wind; 
 		this.sonnenstunden = sonnenstunden; 
-		this.bewoelkung = bewoelkung; 
 		this.setRegenwahrscheinlichkeit(regenwahrscheinlichkeit); 
 		this.setNiederschlag(niederschlag); 
+		berechneBewoelkung(); 
 	}
 	
 	
@@ -80,5 +80,25 @@ public class Wetter {
 		this.regenwahrscheinlichkeit = regenwahrscheinlichkeit;
 	}
 	
+	private void berechneBewoelkung() {
+		//Entscheidung welcher Wert des Enums Bewoelkung am besten passt
+		//-> später wichtig für Icon 
+		if(regenwahrscheinlichkeit>50 && niederschlag >800) {
+			if(this.temp<0) {
+				this.bewoelkung = Bewoelkung.SCHNEE; 
+			}else {
+				this.bewoelkung= Bewoelkung.REGEN; 
+			}
+		}else if(wind>70) {
+			this.bewoelkung= Bewoelkung.STURM; 
+		}else if(this.sonnenstunden <3) {
+			this.bewoelkung= Bewoelkung.BEWOELKT; 
+		}else if(this.sonnenstunden<5) {
+			this.bewoelkung= Bewoelkung.LEICHT_BEWOELKT; 
+		}else {
+			this.bewoelkung= Bewoelkung.SONNIG; 
+		}
+		
+	}
 	
 }
