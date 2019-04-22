@@ -50,6 +50,7 @@ public class Empfehlung {
             break;
         case ERNTE: 
             //DO
+        	empfehlungErnte();
             break;
         case PFLANZEN: 
             //DO
@@ -162,6 +163,16 @@ public class Empfehlung {
 		
 	}
 	
-	
+	private void empfehlungErnte() {
+		empfehlungBewaesserung(); //eventuell überladene Methode um benötigte Feuchtigkeit festzulegen
+		Wetter wetter = Datenbank.getWetter(1, weinberg);
+		if (wetter.getTemp() > 8 ) { //Temperatur noch offen
+			text = "Für optimale Winterruhe sollte die Temperatur nicht über 8°C betragen"; 
+		}
+		else {
+			//weinberg.Weinbergstatus.next();
+		}
+	}
+
 
 }
