@@ -5,6 +5,7 @@ public class Main {
 		// TODO Auto-generated method stub
 		
 		//Datenbank initialisieren 
+		//Datenbank.initialisiereWinzer(); 
 		Datenbank.initialisiereWetter();
 		//GUI initialisieren
 	}

@@ -3,13 +3,26 @@ import java.util.ArrayList;
 public class Datenbank {
 
 	private static ArrayList<Wetter> wetterDaten;
+	private static Winzer winzer; 
 
 	public static Winzer getWinzer() {
-		Winzer winzer = new Winzer("Frank", "Weinbauer");
-		Status status = new Status(); 
-		Weinberg weinberg = new Weinberg(winzer, status); 
-		winzer.addWeinberg(weinberg);
+		
 		return winzer;
+	}
+	
+	public static void initialisiereWinzer() {
+		Winzer winzer = new Winzer("Frank", "Weinbauer");
+		Status status1 = new Status(); 
+		Weinberg weinberg1 = new Weinberg(winzer, status1, 30 , 40); 
+		winzer.addWeinberg(weinberg1);
+		
+		Status status2 = new Status(); 
+		Weinberg weinberg2 = new Weinberg(winzer, status2, 30 , 40); 
+		winzer.addWeinberg(weinberg2);
+		
+		Status status3 = new Status(); 
+		Weinberg weinberg3 = new Weinberg(winzer, status3, 30 , 40); 
+		winzer.addWeinberg(weinberg3);
 	}
 
 	public static ArrayList<Wetter> getWetter() {

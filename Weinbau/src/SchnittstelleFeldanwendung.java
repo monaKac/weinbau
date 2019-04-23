@@ -2,7 +2,7 @@
 public class SchnittstelleFeldanwendung {
 
 	public static void starteBewaesserung(Weinberg weinberg, int menge) {
-		
+		System.out.println("Starte Bewässerung"); 
 	}
 	
 	public static void startePflanzenschutz(Weinberg weinberg, int menge) {
