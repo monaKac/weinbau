@@ -9,12 +9,17 @@ public class Empfehlung {
 	String text; 
 	Weinberg weinberg; //aktueller Weinberg
 	int datum;  // aktuelles Datum 
+	Wetter[] wettervorhersage; 
 	
 	public Empfehlung(Weinberg weinberg, int datum) {
 		this.weinberg = weinberg; 
 		this.empfehlungsStatus = weinberg.getStatus(); 
 		this.datum = datum; 
 		berechneEmpfehlung(); 
+		wettervorhersage = new Wetter[7]; 
+		for(int i = 0; i<7; i++) {
+		wettervorhersage[i] = Datenbank.getWetter(datum+i, weinberg); 
+		}
 	}
 	
 	private void berechneEmpfehlung() {
@@ -92,8 +97,8 @@ public class Empfehlung {
 		double regenwahrscheinlichkeit = 0.0; 
 		double sonnenstunden = 0.0; 
 		double temperatur = 0.0;
-		for(int i = datum; i < datum+7 ; i++) { 	
-			Wetter wetter = Datenbank.getWetter(i, weinberg);
+		for(int i = 0; i < 7 ; i++) { 	
+			Wetter wetter = wettervorhersage[i]; 
 			niederschlag = niederschlag + wetter.getNiederschlag();
 			regenwahrscheinlichkeit = regenwahrscheinlichkeit + wetter.getRegenwahrscheinlichkeit();
 			sonnenstunden = sonnenstunden + wetter.getSonnenstunden();
@@ -176,8 +181,8 @@ public class Empfehlung {
 		}
 		
 		double niederschlag=0, regenwahrscheinlichkeit=0, sonnenstunden=0, temperatur=0;
-		for(int i = datum; i < datum+3 ; i++) { 
-			Wetter wetter = Datenbank.getWetter(i, weinberg);
+		for(int i = 0; i < 3 ; i++) { 
+			Wetter wetter = wettervorhersage[i];
 			niederschlag = niederschlag + (1/3)* wetter.getNiederschlag();
 			regenwahrscheinlichkeit = regenwahrscheinlichkeit + (1/3)* wetter.getRegenwahrscheinlichkeit();
 			sonnenstunden = sonnenstunden + (1/3)* wetter.getSonnenstunden();
@@ -201,18 +206,13 @@ public class Empfehlung {
 			}else {
 				//keine Gefahr von Pilzkrankheiten 
 			}
-		}
-		
-		
-		
-		
-		
+		}	
 	
 	}
 	
 	private void empfehlungErnte() {
 		empfehlungBewaesserung(); //eventuell �berladene Methode um ben�tigte Feuchtigkeit festzulegen
-		Wetter wetter = Datenbank.getWetter(1, weinberg);
+		Wetter wetter = wettervorhersage[1];
 		if (wetter.getTemp() > 8 ) { //Temperatur noch offen
 			text = "F�r optimale Winterruhe sollte die Temperatur nicht �ber 8�C betragen"; 
 		}
