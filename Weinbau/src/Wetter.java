@@ -85,14 +85,14 @@ public class Wetter {
 	private void berechneBewoelkung() {
 		//Entscheidung welcher Wert des Enums Bewoelkung am besten passt
 		//-> später wichtig für Icon 
-		if(regenwahrscheinlichkeit>50 && niederschlag >800) {
-			if(this.temp<0) {
+		if(wind>70) {
+			this.bewoelkung= Bewoelkung.STURM; 
+		}else if(regenwahrscheinlichkeit>50 && niederschlag >800) {
+			if(this.temp<1) {
 				this.bewoelkung = Bewoelkung.SCHNEE; 
 			}else {
 				this.bewoelkung= Bewoelkung.REGEN; 
 			}
-		}else if(wind>70) {
-			this.bewoelkung= Bewoelkung.STURM; 
 		}else if(this.sonnenstunden <3) {
 			this.bewoelkung= Bewoelkung.BEWOELKT; 
 		}else if(this.sonnenstunden<5) {
