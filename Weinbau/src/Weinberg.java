@@ -151,8 +151,6 @@ public class Weinberg {
 		this.alter = alter;
 	}
 	
-	public void addPflanze() {
-		
-	}
+
 	
 }
