@@ -40,7 +40,6 @@ public class TestWeinberg {
 		Weinberg weinberg2 = weinberg; //gleich weinberg
 		Weinberg weinbergAnders = new Weinberg(keinWeinberg,new Status(), 50, 50); //andererWeinberg
 		assertTrue(weinberg.equals(weinberg2));
-	
 		assertFalse(weinberg.equals(keinWeinberg)); 
 		assertFalse(weinberg.equals(weinbergAnders)); 
 	}
