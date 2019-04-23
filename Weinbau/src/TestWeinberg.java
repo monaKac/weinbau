@@ -5,9 +5,9 @@ import org.junit.jupiter.api.Test;
 
 public class TestWeinberg {
 
-	private Weinberg weinberg;
+	private static Weinberg weinberg;
 	@BeforeAll
-	public void setup() {
+	public static void setup() {
 		Winzer winzer = new Winzer("Frank", "Weinbauer");
 		Status status = new Status(); 
 		weinberg = new Weinberg(winzer, status, 50, 50, 25); 

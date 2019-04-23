@@ -29,7 +29,8 @@ public class Weinberg {
 		this.id = nextId; 
 		this.setMineraliengehalt(mineraliengehalt); 
 		nextId++; 
-		this.setAlter(0); 
+		this.setAlter(0);
+		pflanzen = new ArrayList<>();
 	}
 	
 	public Weinberg(Winzer winzer, Status status, int bodenfeuchtigkeit, int mineraliengehalt, int alter) {
@@ -41,6 +42,7 @@ public class Weinberg {
 		this.setMineraliengehalt(mineraliengehalt); 
 		this.setAlter(alter); 
 		nextId++; 
+		pflanzen = new ArrayList<>();
 	}
 	
 	
