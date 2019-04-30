@@ -8,6 +8,7 @@ public class Main {
 		Datenbank.initialisiereWinzer(); 
 		Datenbank.initialisiereWetter();
 		//GUI initialisieren
+		GUI.initialisiere(Datenbank.getWinzer());
 	}
 
 }
