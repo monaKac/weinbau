@@ -6,6 +6,8 @@ public class Empfehlung {
 	int duengen; 
 	Status empfehlungsStatus; 
 	String text; 
+	String textBewaesserung; 
+	String textDuenger; 
 	Weinberg weinberg; //aktueller Weinberg
 	int datum;  // aktuelles Datum 
 	Wetter[] wettervorhersage; 
@@ -14,7 +16,6 @@ public class Empfehlung {
 		this.weinberg = weinberg; 
 		this.empfehlungsStatus = weinberg.getStatus(); 
 		this.datum = datum; 
-		 
 		wettervorhersage = new Wetter[7]; 
 		for(int i = 0; i<7; i++) {
 		wettervorhersage[i] = Datenbank.getWetter(datum+i, weinberg); 
@@ -69,7 +70,20 @@ public class Empfehlung {
 	}
 	
 	public String getText() {
-		return text;
+		if(this.empfehlungsStatus.equals(this.weinberg.getStatus())) {
+			return null; 
+		}else {
+			return text;
+		}
+		
+	}
+	
+	public String getTextBewaesserung() {
+		return this.textBewaesserung;
+	}
+	
+	public String getTextDuenger() {
+		return this.textDuenger;
 	}
 	
 	public boolean istWarnung() {
