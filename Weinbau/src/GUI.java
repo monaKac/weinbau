@@ -1,5 +1,4 @@
 import javax.swing.*;
-import javax.swing.border.Border;
 
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -45,10 +44,10 @@ public JPanel createPanel(Weinberg w) {
 	panel.add(button,BorderLayout.SOUTH);
 	
 	// WARNUNGEN HIER HINZUFÜGEN (BorderLayout CENTER)
-	/*Empfehlung empfehlung = new Empfehlung(w, 10); 
+	Empfehlung empfehlung = new Empfehlung(w, 10); 
 	if(empfehlung.getText()!= null ) {
 		panel.add(new JLabel(empfehlung.getText()), BorderLayout.CENTER);
-	}*/
+	}
 	 
 	
 	return panel; 
@@ -63,18 +62,7 @@ public JPanel createPanel(Weinberg w) {
 			c.add(createPanel(w));
 			
 		}
-		
-		// in Weinberg Klasse ?
-
-		JPanel weinberg1 = new JPanel(new BorderLayout());
-		JLabel Ueberschrift1 = new JLabel("Weinberg 1");
-		JButton gehezu1 = new JButton("WARNUNGEN UND SO");
-		weinberg1.add(Ueberschrift1, BorderLayout.NORTH);
-		weinberg1.add(gehezu1, BorderLayout.CENTER);
-		
-		// for Weinbergliste : weinbergnr --> c.add(weinbergnr.panel)
-		c.add(weinberg1);
-
+	
 		
 
 		JPanel option2add = new JPanel(new FlowLayout());
@@ -100,12 +88,8 @@ public JPanel createPanel(Weinberg w) {
 		JPanel eins,zwei,drei,vier;
 
 		eins = new JPanel(new GridLayout(2,1/*AnzahlWarnungen*/)); // ï¿½berschriften /Warnungen...
-		eins.add(new JLabel("Weinberg 1"));
+		eins.add(new JLabel("Weinberg "+ weinberg.getId()));
 		eins.add(new JLabel("Warnung 1"));
-
-		eins = new JPanel(new GridLayout(2,1/*AnzahlWarnungen*/)); // Überschriften /Warnungen...
-		eins.add(new JLabel("Weinberg 1")); //WeinbergID
-		eins.add(new JLabel("Warnung 1"));  //Weinbergwarnungen
 
 		zwei = new JPanel(new BorderLayout()); // Wetter und so / also variable von Weinberg?
 		zwei.add(new JLabel("Wetter"), BorderLayout.NORTH);
@@ -118,12 +102,9 @@ public JPanel createPanel(Weinberg w) {
 		
 		vier = new JPanel(new GridLayout(3,2)); // Daten Durchschnitt der Pflanzen ???
 		vier.add(new JLabel("Mineraliengehalt"));
-		vier.add(new JButton("Dï¿½ngen"));
+		vier.add(new JButton("Düngen"));
 		vier.add(new JLabel("Zuckergehalt"));
 		vier.add(new JLabel("WERT ZUCKER"));
-
-		vier.add(new JLabel("Grï¿½ï¿½e der Pflanzen"));
-		vier.add(new JLabel("WERT GRï¿½ï¿½E"));
 
 		vier.add(new JLabel("Größe der Pflanzen"));
 		vier.add(new JLabel("WERT GRÖßE")); 

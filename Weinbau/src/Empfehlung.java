@@ -14,11 +14,12 @@ public class Empfehlung {
 		this.weinberg = weinberg; 
 		this.empfehlungsStatus = weinberg.getStatus(); 
 		this.datum = datum; 
-		berechneEmpfehlung(); 
+		 
 		wettervorhersage = new Wetter[7]; 
 		for(int i = 0; i<7; i++) {
 		wettervorhersage[i] = Datenbank.getWetter(datum+i, weinberg); 
 		}
+		berechneEmpfehlung();
 	}
 	
 	private void berechneEmpfehlung() {
