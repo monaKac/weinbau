@@ -45,10 +45,10 @@ public JPanel createPanel(Weinberg w) {
 	panel.add(button,BorderLayout.SOUTH);
 	
 	// WARNUNGEN HIER HINZUFÜGEN (BorderLayout CENTER)
-	Empfehlung empfehlung = new Empfehlung(w, 10); 
+	/*Empfehlung empfehlung = new Empfehlung(w, 10); 
 	if(empfehlung.getText()!= null ) {
 		panel.add(new JLabel(empfehlung.getText()), BorderLayout.CENTER);
-	}
+	}*/
 	 
 	
 	return panel; 
@@ -65,7 +65,7 @@ public JPanel createPanel(Weinberg w) {
 		}
 		
 		// in Weinberg Klasse ?
-<<<<<<< Upstream, based on origin/master
+
 		JPanel weinberg1 = new JPanel(new BorderLayout());
 		JLabel Ueberschrift1 = new JLabel("Weinberg 1");
 		JButton gehezu1 = new JButton("WARNUNGEN UND SO");
@@ -74,8 +74,7 @@ public JPanel createPanel(Weinberg w) {
 		
 		// for Weinbergliste : weinbergnr --> c.add(weinbergnr.panel)
 		c.add(weinberg1);
-=======
->>>>>>> cbb404b GUI Weiterentwicklung
+
 		
 
 		JPanel option2add = new JPanel(new FlowLayout());
@@ -99,17 +98,15 @@ public JPanel createPanel(Weinberg w) {
 		c.setLayout(new GridLayout(4,1,50,5));
 		
 		JPanel eins,zwei,drei,vier;
-		
-<<<<<<< Upstream, based on origin/master
+
 		eins = new JPanel(new GridLayout(2,1/*AnzahlWarnungen*/)); // ï¿½berschriften /Warnungen...
 		eins.add(new JLabel("Weinberg 1"));
 		eins.add(new JLabel("Warnung 1"));
-=======
+
 		eins = new JPanel(new GridLayout(2,1/*AnzahlWarnungen*/)); // Überschriften /Warnungen...
 		eins.add(new JLabel("Weinberg 1")); //WeinbergID
 		eins.add(new JLabel("Warnung 1"));  //Weinbergwarnungen
->>>>>>> cbb404b GUI Weiterentwicklung
-		
+
 		zwei = new JPanel(new BorderLayout()); // Wetter und so / also variable von Weinberg?
 		zwei.add(new JLabel("Wetter"), BorderLayout.NORTH);
 		zwei.add(new JLabel("Hier steht das aktuelle Wetter"),BorderLayout.CENTER);
@@ -124,13 +121,13 @@ public JPanel createPanel(Weinberg w) {
 		vier.add(new JButton("Dï¿½ngen"));
 		vier.add(new JLabel("Zuckergehalt"));
 		vier.add(new JLabel("WERT ZUCKER"));
-<<<<<<< Upstream, based on origin/master
+
 		vier.add(new JLabel("Grï¿½ï¿½e der Pflanzen"));
 		vier.add(new JLabel("WERT GRï¿½ï¿½E"));
-=======
+
 		vier.add(new JLabel("Größe der Pflanzen"));
 		vier.add(new JLabel("WERT GRÖßE")); 
->>>>>>> cbb404b GUI Weiterentwicklung
+
 		
 		eins.setBackground(Color.lightGray);
 		zwei.setBackground(Color.cyan);
