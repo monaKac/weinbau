@@ -27,9 +27,9 @@ public class GUI extends JFrame {
 		
 		// in Weinberg Klasse ?
 		JPanel weinberg1 = new JPanel(new BorderLayout());
-		JLabel überschrift1 = new JLabel("Weinberg 1");
+		JLabel Ueberschrift1 = new JLabel("Weinberg 1");
 		JButton gehezu1 = new JButton("WARNUNGEN UND SO");
-		weinberg1.add(überschrift1, BorderLayout.NORTH);
+		weinberg1.add(Ueberschrift1, BorderLayout.NORTH);
 		weinberg1.add(gehezu1, BorderLayout.CENTER);
 		
 		// for Weinbergliste : weinbergnr --> c.add(weinbergnr.panel)
@@ -37,7 +37,7 @@ public class GUI extends JFrame {
 		
 
 		JPanel option2add = new JPanel(new FlowLayout());
-		JButton neuerWeinberg = new JButton("Neuen Weinberg hinzufügen");
+		JButton neuerWeinberg = new JButton("Neuen Weinberg hinzufï¿½gen");
 		
 		option2add.add(neuerWeinberg);
 		
@@ -59,7 +59,7 @@ public class GUI extends JFrame {
 		
 		JPanel eins,zwei,drei,vier;
 		
-		eins = new JPanel(new GridLayout(2,1/*AnzahlWarnungen*/)); // Überschriften /Warnungen...
+		eins = new JPanel(new GridLayout(2,1/*AnzahlWarnungen*/)); // ï¿½berschriften /Warnungen...
 		eins.add(new JLabel("Weinberg 1"));
 		eins.add(new JLabel("Warnung 1"));
 		
@@ -70,15 +70,15 @@ public class GUI extends JFrame {
 		drei = new JPanel(new BorderLayout()); // Niederschlag
 		drei.add(new JLabel("Niederschlag"), BorderLayout.NORTH);
 		drei.add(new JButton("Ich bin ein Niederschlagsdiagramm"),BorderLayout.CENTER);
-		drei.add(new JButton("Bewässerung starten"),BorderLayout.SOUTH);
+		drei.add(new JButton("Bewï¿½sserung starten"),BorderLayout.SOUTH);
 		
 		vier = new JPanel(new GridLayout(3,2)); // Daten
 		vier.add(new JLabel("Mineraliengehalt"));
-		vier.add(new JButton("Düngen"));
+		vier.add(new JButton("Dï¿½ngen"));
 		vier.add(new JLabel("Zuckergehalt"));
 		vier.add(new JLabel("WERT ZUCKER"));
-		vier.add(new JLabel("Größe der Pflanzen"));
-		vier.add(new JLabel("WERT GRÖßE"));
+		vier.add(new JLabel("Grï¿½ï¿½e der Pflanzen"));
+		vier.add(new JLabel("WERT GRï¿½ï¿½E"));
 		
 		eins.setBackground(Color.lightGray);
 		zwei.setBackground(Color.cyan);

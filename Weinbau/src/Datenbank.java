@@ -43,7 +43,7 @@ public class Datenbank {
 	}
 
 	public static void initialisiereWetter() {
-		ArrayList<Weinberg> weinberge = getWinzer().getWeinberge();
+		ArrayList<Weinberg> weinberge = new ArrayList<>(winzer.getWeinberge());
 		for (int d = 0; d <= 20; d++) {
 			for (int w = 1; w < 4; w++) {
 				Weinberg weinberg = weinberge.get(w);

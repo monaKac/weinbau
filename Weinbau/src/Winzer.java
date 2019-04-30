@@ -26,6 +26,7 @@ public class Winzer {
 		return weinberge;
 	}
 	
+
 	public void addWeinberg(Weinberg weinberg) {		
 		for(Weinberg w : this.weinberge) {
 			if (w.equals(weinberg)) {
