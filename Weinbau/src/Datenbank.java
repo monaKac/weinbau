@@ -11,7 +11,7 @@ public class Datenbank {
 	}
 	
 	public static void initialisiereWinzer() {
-		Winzer winzer = new Winzer("Frank", "Weinbauer");
+		winzer = new Winzer("Frank", "Weinbauer");
 		Status status1 = new Status(); 
 		Weinberg weinberg1 = new Weinberg(winzer, status1, 30 , 40); 
 		winzer.addWeinberg(weinberg1);
@@ -43,9 +43,10 @@ public class Datenbank {
 	}
 
 	public static void initialisiereWetter() {
-		ArrayList<Weinberg> weinberge = new ArrayList<>(winzer.getWeinberge());
+		ArrayList<Weinberg> weinberge = winzer.getWeinberge();
+		wetterDaten = new ArrayList<>();
 		for (int d = 0; d <= 20; d++) {
-			for (int w = 1; w < 4; w++) {
+			for (int w = 0; w < 3; w++) {
 				Weinberg weinberg = weinberge.get(w);
 				double temp = Math.random() * 8 + 23;
 				double wind = Math.random() * 40;
