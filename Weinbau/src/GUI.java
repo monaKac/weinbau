@@ -2,30 +2,70 @@ import javax.swing.*;
 import javax.swing.border.Border;
 
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 public class GUI extends JFrame {
 
 	Container c = getContentPane();
-
-	public GUI() {
-		Weinberg weinberg = new Weinberg();
-		this.fenster2(weinberg);
+	static GUI gui;
+	
+	public GUI(Winzer winzer) {
+		
+		fenster1(winzer);
 
 	}
+	public GUI(Weinberg weinberg) {
+		fenster2(weinberg);
+	}
 
-	public static void main(String[] args) {
-		GUI gui = new GUI();
+	public static void initialisiere(Winzer winzer) {
+		gui = new GUI(winzer);
 
 		gui.setVisible(true);
-		gui.setSize(800 /* Weinbergliste.length *125 */ , 1000);
+		gui.setSize(800 /* Weinbergliste.length *125 */ , 800);
+	}
+	
+public static void initialisiere2(Weinberg weinberg) {
+		gui = new GUI(weinberg);
+		gui.setVisible(true);
+		gui.setSize(800,800);
 	}
 
-	public void fenster1() {
+public JPanel createPanel(Weinberg w) {
+	JPanel panel = new JPanel(new BorderLayout());
+	panel.add(new JLabel("Weinberg"+ w.getId()), BorderLayout.NORTH);
+	JButton button = new JButton("Öffnen");
+	button.addActionListener(new ActionListener() {
+
+		public void actionPerformed(ActionEvent e) {
+			GUI.initialisiere2(w);
+		}
+	});
+	panel.add(button,BorderLayout.SOUTH);
+	
+	// WARNUNGEN HIER HINZUFÜGEN (BorderLayout CENTER)
+	Empfehlung empfehlung = new Empfehlung(w, 10); 
+	if(empfehlung.getText()!= null ) {
+		panel.add(new JLabel(empfehlung.getText()), BorderLayout.CENTER);
+	}
+	 
+	
+	return panel; 
+}
+
+	public void fenster1(Winzer winzer) {
 		
 		c.removeAll();
+		c.setLayout(new GridLayout(2,8));
 		
+		for (Weinberg w: winzer.getWeinberge()) {
+			c.add(createPanel(w));
+			
+		}
 		
 		// in Weinberg Klasse ?
+<<<<<<< Upstream, based on origin/master
 		JPanel weinberg1 = new JPanel(new BorderLayout());
 		JLabel Ueberschrift1 = new JLabel("Weinberg 1");
 		JButton gehezu1 = new JButton("WARNUNGEN UND SO");
@@ -34,6 +74,8 @@ public class GUI extends JFrame {
 		
 		// for Weinbergliste : weinbergnr --> c.add(weinbergnr.panel)
 		c.add(weinberg1);
+=======
+>>>>>>> cbb404b GUI Weiterentwicklung
 		
 
 		JPanel option2add = new JPanel(new FlowLayout());
@@ -41,16 +83,15 @@ public class GUI extends JFrame {
 		
 		option2add.add(neuerWeinberg);
 		
-		JPanel slot3 = new JPanel(new BorderLayout());
-		JPanel slot4 = new JPanel(new BorderLayout());
+		
 
-		c.setLayout(new GridLayout(2 /* Weinbergliste.length /2 */, 2  ));
+		
 	
 		c.add(option2add);
-		c.add(slot3);
-		c.add(slot4);
+		
 		
 	}
+	
 
 	public void fenster2(Weinberg weinberg) {
 		
@@ -59,26 +100,37 @@ public class GUI extends JFrame {
 		
 		JPanel eins,zwei,drei,vier;
 		
+<<<<<<< Upstream, based on origin/master
 		eins = new JPanel(new GridLayout(2,1/*AnzahlWarnungen*/)); // ï¿½berschriften /Warnungen...
 		eins.add(new JLabel("Weinberg 1"));
 		eins.add(new JLabel("Warnung 1"));
+=======
+		eins = new JPanel(new GridLayout(2,1/*AnzahlWarnungen*/)); // Überschriften /Warnungen...
+		eins.add(new JLabel("Weinberg 1")); //WeinbergID
+		eins.add(new JLabel("Warnung 1"));  //Weinbergwarnungen
+>>>>>>> cbb404b GUI Weiterentwicklung
 		
-		zwei = new JPanel(new BorderLayout()); // Wetter und so
+		zwei = new JPanel(new BorderLayout()); // Wetter und so / also variable von Weinberg?
 		zwei.add(new JLabel("Wetter"), BorderLayout.NORTH);
 		zwei.add(new JLabel("Hier steht das aktuelle Wetter"),BorderLayout.CENTER);
 		
 		drei = new JPanel(new BorderLayout()); // Niederschlag
-		drei.add(new JLabel("Niederschlag"), BorderLayout.NORTH);
+		drei.add(new JLabel("Niederschlag:"), BorderLayout.NORTH);
 		drei.add(new JButton("Ich bin ein Niederschlagsdiagramm"),BorderLayout.CENTER);
 		drei.add(new JButton("Bewï¿½sserung starten"),BorderLayout.SOUTH);
 		
-		vier = new JPanel(new GridLayout(3,2)); // Daten
+		vier = new JPanel(new GridLayout(3,2)); // Daten Durchschnitt der Pflanzen ???
 		vier.add(new JLabel("Mineraliengehalt"));
 		vier.add(new JButton("Dï¿½ngen"));
 		vier.add(new JLabel("Zuckergehalt"));
 		vier.add(new JLabel("WERT ZUCKER"));
+<<<<<<< Upstream, based on origin/master
 		vier.add(new JLabel("Grï¿½ï¿½e der Pflanzen"));
 		vier.add(new JLabel("WERT GRï¿½ï¿½E"));
+=======
+		vier.add(new JLabel("Größe der Pflanzen"));
+		vier.add(new JLabel("WERT GRÖßE")); 
+>>>>>>> cbb404b GUI Weiterentwicklung
 		
 		eins.setBackground(Color.lightGray);
 		zwei.setBackground(Color.cyan);
@@ -95,4 +147,6 @@ public class GUI extends JFrame {
 		
 
 	}
+
+	
 }
