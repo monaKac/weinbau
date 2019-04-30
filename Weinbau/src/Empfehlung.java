@@ -4,7 +4,6 @@ public class Empfehlung {
 	boolean warnung;
 	int bewaesserungsmenge; 
 	int duengen; 
-	int pflanzenschutz; 
 	Status empfehlungsStatus; 
 	String text; 
 	Weinberg weinberg; //aktueller Weinberg
@@ -24,7 +23,6 @@ public class Empfehlung {
 	
 	private void berechneEmpfehlung() {
 		empfehlungBewaesserung();
-		empfehlungKrankheitsvorbeugung();
 		empfehlungDuengen(); 
 		
 		switch(weinberg.getStatus().getWeinbergstatus()){
@@ -57,12 +55,14 @@ public class Empfehlung {
             //DO
         	empfehlungErnte();
             break;
-        case PFLANZEN: 
-            //DO
+        
         } 
 		
 	}
 	
+	protected void setWettervorhersage(Wetter[] wettervorhersage) {
+		this.wettervorhersage = wettervorhersage;
+	}
 	public Status getEmpfehlungsstatus() {
 		return this.empfehlungsStatus; 
 	}
@@ -83,12 +83,11 @@ public class Empfehlung {
 		return bewaesserungsmenge; 
 	}
 	
-	public int sollPflanzenschutz() {
-		return pflanzenschutz; 
-	}
+
 	
 	private void empfehlungBewaesserung(){
 		if(weinberg.getBodenfeuchtigkeit()>50) {
+			this.bewaesserungsmenge = 0; 
 			return;
 		}
 		
@@ -145,12 +144,26 @@ public class Empfehlung {
 		
 		
 	}
-
-	private void empfehlungKrankheitsvorbeugung(){
-		
-	}
 	
 	private void empfehlungDuengen(){
+		int mineralien = this.weinberg.getMineraliengehalt();
+		if(mineralien>50) {
+			this.duengen = 0; 
+			return;
+		}
+		double niederschlag = 0.0; 
+		double regenwahrscheinlichkeit = 0.0; 
+		for(int i = 0; i < 2 ; i++) { 	
+			Wetter wetter = wettervorhersage[i]; 
+			niederschlag = niederschlag + wetter.getNiederschlag();
+			regenwahrscheinlichkeit = regenwahrscheinlichkeit + wetter.getRegenwahrscheinlichkeit();
+		}
+		niederschlag = niederschlag / 2; 
+		regenwahrscheinlichkeit = regenwahrscheinlichkeit / 2 ; 
+		
+		if(regenwahrscheinlichkeit>80 && niederschlag>1000) {
+			this.duengen = ( 100 - mineralien ) * 3 * this.weinberg.getPflazen().size() ;
+		}
 		
 	}
 	
@@ -163,23 +176,31 @@ public class Empfehlung {
 		//im Boden und auch danach, ob die Weinbergsflora schon Samen gebildet hat. 
 		//Wenn es die Witterung erlaubt, wird der erste Arbeitsgang erst im Mai/Juni durchgeführt.
 			empfehlungBewaesserung(); 
+			this.empfehlungsStatus = new Status(Weinbergstatus.BODENARBEIT); 
 			
 		}
 	
 	private void empfehlungBodenarbeit() {
 		//Austrieb -> Beginn Pflanzenschutz 
 		empfehlungBewaesserung(); 
+	
+		this.empfehlungsStatus = new Status(Weinbergstatus.PFLANZENSCHUTZ); 
+		
 	}
 	
 	private void empfehlungPflanzenschutz() {
+		String hoheGefahr = "Achtung hohe Gefahr von Pilzkrankheiten";
+		String gefahr = "Achtung erhöhte Gefahr von Pilzrkrankheiten"; 
+		String kGefahr ="Keine Gefahr von Pilzkrankheiten";
 		// je nach Wetter 4-7 mal Spritzen 
 		// wenn Feucht Gefahr von Pilzkrankheiten 
 		empfehlungBewaesserung(); 
 		if(this.weinberg.getStatus().getProzent()>=100) { // es wurde schon max. Anzahl gespritzt
 			//nextStatus
+			this.empfehlungsStatus = new Status(Weinbergstatus.BEFRUCHTUNG); 
 			return; 
 		}
-		
+		this.empfehlungsStatus = new Status(Weinbergstatus.PFLANZENSCHUTZ); 
 		double niederschlag=0, regenwahrscheinlichkeit=0, sonnenstunden=0, temperatur=0;
 		for(int i = 0; i < 3 ; i++) { 
 			Wetter wetter = wettervorhersage[i];
@@ -192,19 +213,31 @@ public class Empfehlung {
 		if(weinberg.getBodenfeuchtigkeit()>=50) {
 			if(sonnenstunden < 5 && niederschlag >1000 && regenwahrscheinlichkeit >80 && temperatur < 16) {
 				//Achtung hohe Gefahr von Pilzkrankheiten
+				this.text = hoheGefahr;
+				this.warnung = true; 
 			}else if(sonnenstunden < 7 && niederschlag >700 && regenwahrscheinlichkeit >60 && temperatur < 16) {
 				//Achtung erhöhte Gefahr von Pilzkrankheiten
+				this.text = gefahr; 
+				this.warnung = false; 
 			}else {
 				//keine Gefahr von Pilzkrankheiten 
+				this.text = kGefahr; 
+				this.warnung = false; 
 			}
 			
 		}else {
 			if(sonnenstunden < 5 && niederschlag >2000 && regenwahrscheinlichkeit >80 && temperatur < 16) {
 				//Achtung hohe Gefahr von Pilzkrankheiten
+				this.text = hoheGefahr;
+				this.warnung = true; 
 			}else if(sonnenstunden < 7 && niederschlag >1500 && regenwahrscheinlichkeit >60 && temperatur < 16) {
 				//Achtung erhöhte Gefahr von Pilzkrankheiten
+				this.text = gefahr; 
+				this.warnung = false; 
 			}else {
 				//keine Gefahr von Pilzkrankheiten 
+				this.text = kGefahr; 
+				this.warnung = false; 
 			}
 		}	
 	
