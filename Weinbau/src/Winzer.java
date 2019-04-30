@@ -8,6 +8,9 @@ public class Winzer {
 	private String nachname;
 	private ArrayList<Weinberg> weinberge;
 	
+	public Winzer() {
+		this("Max","Musterwinzer");
+	}
 	
 	public Winzer(String vorname, String nachname) {
 		//set id this.id = ; 

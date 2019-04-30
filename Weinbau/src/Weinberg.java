@@ -20,6 +20,9 @@ public class Weinberg {
 //		nextId++; 
 //		
 //	}
+	public Weinberg () {
+		this(new Winzer(),new Status(),0,0);
+	}
 	
 	public Weinberg(Winzer winzer, Status status, int bodenfeuchtigkeit, int mineraliengehalt) {
 		//this.id = //Methode um unique id zu generieren 
