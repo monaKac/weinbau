@@ -106,6 +106,12 @@ public class Wetter {
 	public int getId() {
 		return id;
 	}
+	
+	
+	
+	public String toString() {
+		return "Wetter: Datum :"+this.datum+", Temp :"+this.temp+", Regen :"+this.niederschlag+", Wahrscheinlichkeit :"+this.regenwahrscheinlichkeit+", Wind :"+this.wind+", Sonnenstunden :" + this.sonnenstunden +", Bewoelkung : "+this.bewoelkung.toString();
+	}
 
 
 	
