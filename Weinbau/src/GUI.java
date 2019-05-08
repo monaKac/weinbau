@@ -82,6 +82,7 @@ public class GUI extends JFrame {
 
 		c.removeAll();
 		c.setLayout(new GridLayout(4, 1, 50, 5));
+		c.setBackground(Color.WHITE);
 
 		Wetter wetter = Datenbank.getWetter(datum, weinberg); // Datum ändern
 
