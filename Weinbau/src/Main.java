@@ -9,6 +9,8 @@ public class Main {
 		Datenbank.initialisiereWetter();
 		//GUI initialisieren
 		GUI.initialisiere(Datenbank.getWinzer());
+		
+		Feldarbeiter feldarbeiterAnwendung = new Feldarbeiter(Datenbank.getWinzer()); 
 	}
 
 }

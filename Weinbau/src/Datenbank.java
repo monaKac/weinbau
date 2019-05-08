@@ -14,14 +14,18 @@ public class Datenbank {
 		winzer = new Winzer("Frank", "Weinbauer");
 		Status status1 = new Status(); 
 		Weinberg weinberg1 = new Weinberg(winzer, status1, 30 , 40); 
+		weinberg1.setName("Wachenheimer Fuchsmantel");
+		weinberg1.setKommentar("Test1");
 		winzer.addWeinberg(weinberg1);
 		
 		Status status2 = new Status(); 
 		Weinberg weinberg2 = new Weinberg(winzer, status2, 30 , 40); 
+		weinberg2.setName("Forster Ungeheuer");
 		winzer.addWeinberg(weinberg2);
 		
 		Status status3 = new Status(); 
 		Weinberg weinberg3 = new Weinberg(winzer, status3, 30 , 40); 
+		weinberg3.setName("Deidesheimer Hofstueck");
 		winzer.addWeinberg(weinberg3);
 	}
 
