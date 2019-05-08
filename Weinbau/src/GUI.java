@@ -1,8 +1,12 @@
+import javax.imageio.ImageIO;
 import javax.swing.*;
 
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
 
 public class GUI extends JFrame {
 
@@ -66,7 +70,7 @@ public JPanel createPanel(Weinberg w) {
 		
 
 		JPanel option2add = new JPanel(new FlowLayout());
-		JButton neuerWeinberg = new JButton("Neuen Weinberg hinzufï¿½gen");
+		JButton neuerWeinberg = new JButton("Neuen Weinberg hinzufuegen");
 		
 		option2add.add(neuerWeinberg);
 		
@@ -93,12 +97,23 @@ public JPanel createPanel(Weinberg w) {
 
 		zwei = new JPanel(new BorderLayout()); // Wetter und so / also variable von Weinberg?
 		zwei.add(new JLabel("Wetter"), BorderLayout.NORTH);
-		zwei.add(new JLabel("Hier steht das aktuelle Wetter"),BorderLayout.CENTER);
+		
+		BufferedImage myPicture = null;
+		try {
+			myPicture = ImageIO.read(getClass().getResource("bewoelkt.jpg"));
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		JLabel picLabel = new JLabel(new ImageIcon(myPicture));
+		zwei.add(picLabel,BorderLayout.WEST);
+		//zwei.add(new JLabel("Hier steht das aktuelle Wetter"),BorderLayout.CENTER);
 		
 		drei = new JPanel(new BorderLayout()); // Niederschlag
 		drei.add(new JLabel("Niederschlag:"), BorderLayout.NORTH);
 		drei.add(new JButton("Ich bin ein Niederschlagsdiagramm"),BorderLayout.CENTER);
-		drei.add(new JButton("Bewï¿½sserung starten"),BorderLayout.SOUTH);
+		drei.add(new JButton("Bewaesserung starten"),BorderLayout.SOUTH);
 		
 		vier = new JPanel(new GridLayout(3,2)); // Daten Durchschnitt der Pflanzen ???
 		vier.add(new JLabel("Mineraliengehalt"));
@@ -107,7 +122,7 @@ public JPanel createPanel(Weinberg w) {
 		vier.add(new JLabel("WERT ZUCKER"));
 
 		vier.add(new JLabel("Größe der Pflanzen"));
-		vier.add(new JLabel("WERT GRÖßE")); 
+		vier.add(new JLabel("WERT GRoessE")); 
 
 		
 		eins.setBackground(Color.lightGray);
