@@ -1,7 +1,7 @@
 
 public class Wetter {
 	private int datum;
-	private double wind;
+	private double wind; //zwischen 0 und 150 km/h
 	private int id;
 	private static int nextId = 1; 
 	private double temp;
