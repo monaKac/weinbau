@@ -40,4 +40,17 @@ public class Status {
 		return status; 
 	}
 	
+	@Override
+	public boolean equals(Object object) {
+		if(object.getClass()!= Status.class) {
+			return false;
+		}
+		Status status = (Status)object; 
+		if(this.status == status.status && this.prozent == status.prozent) {
+			return true; 
+		}else {
+		return false; 
+		}
+	}
+	
 }
