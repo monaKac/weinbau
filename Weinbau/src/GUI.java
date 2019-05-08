@@ -148,7 +148,7 @@ public class GUI extends JFrame {
 		JPanel niederschlaglinks = new JPanel(new GridLayout(5, 1));
 		
 		
-		// Überschrift
+		// Ueberschrift
 		JLabel wniederschlag = new JLabel("Niederschlag:");
 		wniederschlag.setFont(new Font("Serim", Font.BOLD, 20));
 		niederschlaglinks.add(wniederschlag);
