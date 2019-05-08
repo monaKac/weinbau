@@ -82,7 +82,8 @@ public class GUI extends JFrame {
 
 		c.removeAll();
 		c.setLayout(new GridLayout(4, 1, 50, 5));
-		c.setBackground(Color.WHITE);
+		Color background = Color.WHITE;
+		c.setBackground(background);
 
 		Wetter wetter = Datenbank.getWetter(datum, weinberg); // Datum ändern
 
@@ -126,7 +127,7 @@ public class GUI extends JFrame {
 		leftside.add(new JLabel("Bewoelkung: " + wetter.getBewoelkung()));
 		leftside.add(new JLabel("Windgeschwindigkeit: " + wetter.getWind()));
 		leftside.add(new JLabel("Sonnenstunden: " + wetter.getSonnenstunden()));
-		
+		leftside.setBackground(background);
 		splitmeinhalf.add(leftside);
 
 		// Wettericon auf rechte seite
@@ -139,67 +140,49 @@ public class GUI extends JFrame {
 		}
 		JLabel picLabel = new JLabel(new ImageIcon(myPicture));
 		splitmeinhalf.add(picLabel);
-		splitmeinhalf.setBackground(Color.WHITE);
+		splitmeinhalf.setBackground(background);
 		zwei.add(splitmeinhalf, BorderLayout.CENTER);
-
 		// Panel 3 Niederschlag
 		//
 		//
 		//
-		drei = new JPanel(new GridLayout(1,2));
+		drei = new JPanel(new GridLayout(1, 2));
 		JPanel niederschlaglinks = new JPanel(new GridLayout(5, 1));
-		
-		
+
 		// Ueberschrift
 		JLabel wniederschlag = new JLabel("Niederschlag:");
 		wniederschlag.setFont(new Font("Serim", Font.BOLD, 20));
 		niederschlaglinks.add(wniederschlag);
-		//Daten
-		niederschlaglinks.add(new JLabel("Regenwahrscheinlichkeit heute: " + wetter.getRegenwahrscheinlichkeit() + "%"));
-		niederschlaglinks.add(new JLabel("Niederschlag: "+ wetter.getNiederschlag()));
+		// Daten
+		niederschlaglinks
+				.add(new JLabel("Regenwahrscheinlichkeit heute: " + wetter.getRegenwahrscheinlichkeit() + "%"));
+		niederschlaglinks.add(new JLabel("Niederschlag: " + wetter.getNiederschlag()));
 		drei.add(niederschlaglinks);
-		
 
-		
-		//Der Versuch eines Diagramms
+		// Der Versuch eines Diagramms
 		JPanel diagramm = new JPanel() {
-			
-			int last=0;
+
+			int last = 0;
+
 			public void paintComponent(Graphics g) {
-                super.paintComponent(g);
-                for(int i = 7; i>=0; i--) {
-               
-                Wetter wetterx = Datenbank.getWetter(datum-7+i, weinberg);
-                int regen = wetterx.getNiederschlag()/100;
-                int temp = (int)wetterx.getTemp()*4;
-                g.setColor(Color.BLUE);
-                g.fillRect(i*50, 175- regen, 20, regen);
-                g.setColor(Color.RED);
-                if (last!=0) g.drawLine(i*50+50, 200-last, i*50, 200-temp);;
-                last = temp;
-                }
-            }
+				super.paintComponent(g);
+				for (int i = 7; i >= 0; i--) {
+
+					Wetter wetterx = Datenbank.getWetter(datum - 7 + i, weinberg);
+					int regen = wetterx.getNiederschlag() / 100;
+					int temp = (int) wetterx.getTemp() * 4;
+					g.setColor(Color.BLUE);
+					g.fillRect(i * 50, 175 - regen, 20, regen);
+					g.setColor(Color.RED);
+					if (last != 0)
+						g.drawLine(i * 50 + 50, 200 - last, i * 50, 200 - temp);
+					;
+					last = temp;
+				}
+			}
 		};
 		drei.add(diagramm);
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
+
 		vier = new JPanel(new GridLayout(3, 2));
 		vier.add(new JLabel("Mineraliengehalt"));
 		vier.add(new JButton("Düngen"));
@@ -209,10 +192,11 @@ public class GUI extends JFrame {
 		vier.add(new JLabel("Größe der Pflanzen"));
 		vier.add(new JLabel("WERT GRoessE"));
 
-		/*
-		 * eins.setBackground(Color.lightGray); zwei.setBackground(Color.cyan);
-		 * drei.setBackground(Color.lightGray); vier.setBackground(Color.cyan);
-		 */
+		zwei.setBackground(background);
+		zwei.setBackground(background);
+		zwei.setBackground(background);
+		vier.setBackground(background);
+
 		c.add(eins);
 		c.add(zwei);
 		c.add(drei);
