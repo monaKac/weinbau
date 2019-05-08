@@ -376,6 +376,37 @@ public class Empfehlung {
 		}
 
 	}
+	/**
+	 * Berechnet die Empfehlung fuer den Status Befruchtung ( Uebergang in Laubarbeit )
+	 * Wechsel in Laubarbeit bei hoeheren Windgeschwindigkeiten um Triebe festzubinden 
+	 * als auch bei regnerischem Wetter um Blaetter aufzulesen um die Durchlueftung der
+	 * Pflanzen zu foerdern
+	 */
+	
+	protected void empfehlungBefruchtung() throws Exception {
+		this.empfehlungsStatus = weinberg.getStatus();
+		if (weinberg.getStatus().getProzent() < 100) {
+			return;
+		}
+		int tage = 7;
+		double wind = this.durchschnittWind(tage);
+		double niederschlag = this.durchschnittNiederschlag(tage);
+		double sonnenstunden = this.durchschnitSonnenstunden(tage);
+		if(wind < 20.0) {
+			text = "Nicht windig genug um zur Laubarbeit ueberzugehen";
+		if(niederschlag < 750) {
+			text = "Niederschlag zu gering um zur Laubarbeit ueberzugehen";
+		}
+		if(niederschlag >= 750 & sonnenstunden > 7) {
+			text = "Bodenfeuchtigkeit zu gering um zur Laubarbeit ueberzugehen";
+		}
+		if(wind >= 20.0 || niederschlag >= 750) {
+			this.empfehlungsStatus = new Status(Weinbergstatus.LAUBARBEIT);
+		}
+		}
+		
+	}
+	
 
 	/**
 	 * Berechnet die Empfehlung fuer den Status Ernte ( Uebergang in Winterruhe)
@@ -411,6 +442,27 @@ public class Empfehlung {
 		}
 		return (int) (niederschlag / tage);
 	}
+	
+	/**
+	 * 
+	 * @param tage Muss zwischen 1 und 7 liegen
+	 * @return Durchschnittlicher Wind fuer <code>tage</code>
+	 *         
+	 * 
+	 * @throws Exception falls Tage nicht zwischen 1und 7 liegen
+	 */
+	protected int durchschnittWind(int tage) throws Exception {
+		if (tage < 1 || tage > 7) {
+			throw new RuntimeException("Tage muessen zwischen 1 und 7 liegen");
+		}
+		double wind = 1.0;
+		for (int i = 0; i < tage; i++) {
+			Wetter wetter = wettervorhersage[i];
+			// System.out.println(wetter.toString());
+			wind = wind + wetter.getWind();
+		}
+		return (int) (wind / tage);
+	}
 
 	/**
 	 * 
@@ -430,7 +482,7 @@ public class Empfehlung {
 		}
 		return (int) temp / tage;
 	}
-
+	
 	/**
 	 * 
 	 * @param tage Muss zwischen 1 und 7 liegen
