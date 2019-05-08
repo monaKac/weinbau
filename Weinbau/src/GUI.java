@@ -157,6 +157,10 @@ public class GUI extends JFrame {
 		niederschlaglinks
 				.add(new JLabel("Regenwahrscheinlichkeit heute: " + wetter.getRegenwahrscheinlichkeit() + "%"));
 		niederschlaglinks.add(new JLabel("Niederschlag: " + wetter.getNiederschlag()));
+		niederschlaglinks.add(new JLabel("Bodenfeuchtigkeit: " + weinberg.getBodenfeuchtigkeit()));
+		JButton bewaessern = new JButton("Bewaesserung Starten");
+		niederschlaglinks.add(bewaessern);
+		niederschlaglinks.setBackground(background);
 		drei.add(niederschlaglinks);
 
 		// Der Versuch eines Diagramms
@@ -172,25 +176,33 @@ public class GUI extends JFrame {
 					int regen = wetterx.getNiederschlag() / 100;
 					int temp = (int) wetterx.getTemp() * 4;
 					g.setColor(Color.BLUE);
-					g.fillRect(i * 50, 175 - regen, 20, regen);
+					g.fillRect(i * 50+10, 175 - regen, 20, regen);
 					g.setColor(Color.RED);
 					if (last != 0)
-						g.drawLine(i * 50 + 50, 200 - last, i * 50, 200 - temp);
+						g.drawLine(i * 50 + 70, 200 - last, i * 50+20, 200 - temp);
 					;
 					last = temp;
 				}
 			}
 		};
+		diagramm.setBackground(background);
 		drei.add(diagramm);
 
-		vier = new JPanel(new GridLayout(3, 2));
-		vier.add(new JLabel("Mineraliengehalt"));
-		vier.add(new JButton("Düngen"));
-		vier.add(new JLabel("Zuckergehalt"));
-		vier.add(new JLabel("WERT ZUCKER"));
-
-		vier.add(new JLabel("Größe der Pflanzen"));
-		vier.add(new JLabel("WERT GRoessE"));
+		
+		//Panel 4 Daten der Pflanzen
+		vier = new JPanel(new GridLayout(5, 2));
+		JLabel pflanzendaten = new JLabel("Pflanzendaten:");
+		pflanzendaten.setFont(new Font("Serim", Font.BOLD, 20));
+		vier.add(pflanzendaten);
+		vier.add(new JLabel(" "));
+		vier.add(new JLabel("Mineraliengehalt: " + weinberg.getMineraliengehalt()));
+		vier.add(new JLabel(" "));
+		vier.add(new JLabel("Zuckergehalt: " + weinberg.getZuckergehalt()));
+		vier.add(new JLabel(" "));
+		vier.add(new JLabel("Größe der Pflanzen: " + weinberg.getPflanzenGroesse()));
+		vier.add(new JLabel(" "));
+		JButton duengen = new JButton("Duengen");
+		vier.add(duengen);
 
 		eins.setBackground(background);
 		zwei.setBackground(background);
