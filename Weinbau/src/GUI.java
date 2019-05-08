@@ -139,6 +139,7 @@ public class GUI extends JFrame {
 		}
 		JLabel picLabel = new JLabel(new ImageIcon(myPicture));
 		splitmeinhalf.add(picLabel);
+		splitmeinhalf.setBackground(Color.WHITE);
 		zwei.add(splitmeinhalf, BorderLayout.CENTER);
 
 		// Panel 3 Niederschlag
@@ -170,11 +171,11 @@ public class GUI extends JFrame {
                
                 Wetter wetterx = Datenbank.getWetter(datum-7+i, weinberg);
                 int regen = wetterx.getNiederschlag()/100;
-                int temp = (int)wetterx.getTemp()*3;
+                int temp = (int)wetterx.getTemp()*4;
                 g.setColor(Color.BLUE);
-                g.fillRect(i*50, 100- regen, 20, regen);
+                g.fillRect(i*50, 175- regen, 20, regen);
                 g.setColor(Color.RED);
-                if (last!=0) g.drawLine(i*50+50, 100-last, i*50, 100-temp);;
+                if (last!=0) g.drawLine(i*50+50, 200-last, i*50, 200-temp);;
                 last = temp;
                 }
             }
