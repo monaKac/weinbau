@@ -378,7 +378,7 @@ public class Empfehlung {
 	}
 	/**
 	 * Berechnet die Empfehlung fuer den Status Befruchtung ( Uebergang in Laubarbeit )
-	 * Wechsel zur Laubarbeit bei hoeheren Windgeschwindigkeiten um Triebe festzubinden 
+	 * Wechsel in Laubarbeit bei hoeheren Windgeschwindigkeiten um Triebe festzubinden 
 	 * als auch bei regnerischem Wetter um Blaetter aufzulesen um die Durchlueftung der
 	 * Pflanzen zu foerdern
 	 */
