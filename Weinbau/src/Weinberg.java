@@ -109,7 +109,7 @@ public class Weinberg {
 		 
 	}
 	
-	public ArrayList<Pflanzen> getPflazen() {
+	public ArrayList<Pflanzen> getPflanzen() {
 		return pflanzen;
 	}
 	

@@ -248,7 +248,7 @@ public class Empfehlung {
 		}
 
 		// if( niederschlag>800) {
-		this.duengen = (100 - mineralien) * 3 * (1 + this.weinberg.getPflazen().size());
+		this.duengen = (100 - mineralien) * 3 * (1 + this.weinberg.getPflanzen().size());
 
 	}
 
