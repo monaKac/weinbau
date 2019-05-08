@@ -9,17 +9,9 @@ public class Weinberg {
 	private int mineraliengehalt; // zwischen 0 und 100
 	private ArrayList<Pflanzen> pflanzen; 
 	private int alter; //in Monaten
+	private String kommentar; 
+	private String name; 
 	
-	
-//	public Weinberg(Winzer winzer, Status status) {
-//		//this.id = //Methode um unique id zu generieren 
-//		this.setWinzer(winzer);
-//		this.status = status; 
-//		this.bodenfeuchtigkeit = 0; 
-//		this.id = nextId; 
-//		nextId++; 
-//		
-//	}
 	public Weinberg () {
 		this(new Winzer(),new Status(),0,0);
 	}
@@ -153,7 +145,28 @@ public class Weinberg {
 	public void setAlter(int alter) {
 		this.alter = alter;
 	}
-	
 
+	public String getKommentar() {
+		return kommentar;
+	}
+
+	public void setKommentar(String kommentar) {
+		this.kommentar = kommentar;
+	}
+
+	public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
+	}
+	
+	@Override 
+	public String toString() {
+		if(this.name==null || this.name == "")
+			return "Weinberg "+this.id; 
+		return "Weinberg "+this.name; 
+	}
 	
 }
