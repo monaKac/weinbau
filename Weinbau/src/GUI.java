@@ -192,9 +192,9 @@ public class GUI extends JFrame {
 		vier.add(new JLabel("Größe der Pflanzen"));
 		vier.add(new JLabel("WERT GRoessE"));
 
+		eins.setBackground(background);
 		zwei.setBackground(background);
-		zwei.setBackground(background);
-		zwei.setBackground(background);
+		drei.setBackground(background);
 		vier.setBackground(background);
 
 		c.add(eins);
