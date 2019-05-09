@@ -52,8 +52,8 @@ public class Datenbank {
 		for (int d = 0; d <= 20; d++) {
 			for (int w = 0; w < 3; w++) {
 				Weinberg weinberg = weinberge.get(w);
-				double temp = Math.random() * 8 + 23;
-				double wind = Math.random() * 40;
+				int temp = (int) Math.random() * 8 + 23;
+				int wind = (int) Math.random() * 40;
 				int sonnenstunden = (int) (Math.random() * 8 + 6);
 				int regenwahrscheinlichkeit = (int) (Math.random() * 100);
 				int niederschlag =  (int) (Math.random() * 13000);				
