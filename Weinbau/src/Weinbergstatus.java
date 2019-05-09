@@ -1,4 +1,9 @@
-
+/**
+ * Verschieden Phasen des Weinbergs
+ * Zudem gibt es für jedes Enum eine toString-Methode, welche den String der Phase zurück gibt
+ * @author marcogoette
+ *
+ */
 public enum Weinbergstatus {
 	WINTERRUHE{
 		public String toString() {
