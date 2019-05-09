@@ -23,7 +23,7 @@ public class Weinberg {
 		this.bodenfeuchtigkeit = bodenfeuchtigkeit; 
 		this.id = nextId; 
 		this.setMineraliengehalt(mineraliengehalt); 
-		nextId++; 
+		nextId++;  
 		this.setAlter(0);
 		pflanzen = new ArrayList<>();
 	}
