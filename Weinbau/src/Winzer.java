@@ -15,8 +15,7 @@ public class Winzer {
 	private ArrayList<Weinberg> weinberge;
 	
 	/**
-	 * Wird der Konstruktor ohne Parameter aufgerufen, wird der Winzer
-	 * Musterwinzer erzeugt
+	 * Wird der Konstruktor ohne Parameter aufgerufen, wird der Winzer Max Musterwinzer erzeugt
 	 */
 	public Winzer() {
 		this("Max","Musterwinzer");
