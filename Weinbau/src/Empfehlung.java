@@ -407,6 +407,29 @@ public class Empfehlung {
 		
 	}
 	
+	/**
+	 *Berechnet die Empfehlung fuer den Status Laubarbeit ( Uebergang in Ernte )
+	 *Faktoren fuer den Uebergang in Ernte belaufen sich auf Zuckergehalt und Groesse der Pflanzen
+	 * 
+	 */
+	protected void empfehlungLaubarbeit() {
+		this.empfehlungsStatus = weinberg.getStatus();
+		if (weinberg.getStatus().getProzent() < 100) {
+			return;
+		}
+		double groesse;
+		double zuckergehalt;
+		if (weinberg.getPflanzenGroesse() < 2 ) {  //Zahlen fuer Groesse sind noch festzulegen
+			text = "Pflanzen sind noch nicht groß genug um geerntet zu werden";
+		}
+		if (weinberg.getZuckergehalt() < 111 ) {
+			text = "Zuckergehalt der Pflanzen noch nicht hoch genug";
+		}
+		if (weinberg.getPflanzenGroesse() >= 2 && weinberg.getZuckergehalt() >= 111) {
+			this.empfehlungsStatus = new Status(Weinbergstatus.ERNTE);
+		}
+
+	}
 
 	/**
 	 * Berechnet die Empfehlung fuer den Status Ernte ( Uebergang in Winterruhe)
@@ -501,5 +524,6 @@ public class Empfehlung {
 		}
 		return (int) temp / tage;
 	}
+	
 
 }
