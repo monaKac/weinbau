@@ -1,6 +1,6 @@
 
 public class Pflanzen {
-	private double zuckergehalt; 
+	private double zuckergehalt; // in g
 	private double groesse;   // in m
 	private boolean krankheit;
 	private int id; 
