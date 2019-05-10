@@ -1,0 +1,38 @@
+Grafische Darstellung woher welche Daten kommen.
+
+Wetter zum einen aus einer Wetter Abonnement und den Sensoren vom Weinberg
+
+Schnittstelle zwischen diesen Quellen
+
+Wie reagiere ich mit der Anwendung auf unvorhergesehene Events, welche nicht von der Applikation
+
+Wie kann man in die Planung eingreifen, falls etwas schiefgeht
+
+Größer und weiter denken (Was wäre mit mehr Personal und mehr Zeit möglich, eine Richtung)
+
+Ablauf der Empfehlung visualisieren (wie werden diese Empfehlungen bewertet, wie erfolgt ein Statuswechsel und was sind die Bedingungen)
+
+Anhand einer Phase zeigen wie so etwas erfolgt
+
+Kommentar Funktion für den Feldarbeiter erweitern wenn Aktion abgeschlossen wurde (Winzer weiß besser Bescheid)
+
+Winzer kann Tasks an Feldarbeiter senden
+Als Bestätigung sollte es möglich sein ein Bild von dem Weinberg zu schicken (für die Präsi)
+
+Kontrollaspekt des Winzers/ Eigentümers
+
+Diagramme fehlen (logischen Aspekt beachten)
+
+Erfahrungswissen wichtig
+
+Entwurf zeigen (was wäre alles möglich?)
+- Welchen Teil haben wir ausprogrammiert
+- evtl. Welchen Teil wollen wir weiter beleuchten
+
+Nachvollziehbarkeit unserer Arbeit Momentar nicht gegeben
+- Protokolle, Arbeitsweise, …
+
+Empfehlungen noch sehr starr (fixe Verdrahtung der Para.)
+- Flexiblerer Übergang
+- Wie müsste man die einzelnen Parameter Speicher (direkt unterm Weinberg?)
+- Winzer müsste Parameter ohne IT Verständnis einfach änder können
