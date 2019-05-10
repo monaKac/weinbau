@@ -4,7 +4,7 @@
  * @version 1.0
  *
  */
-public class Empfehlung {
+public class Empfehlung  {
 
 	boolean		warnung;
 	int			bewaesserungsmenge;
