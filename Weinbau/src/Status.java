@@ -4,7 +4,7 @@
  *
  */
 public class Status {
-	double prozent;
+	int prozent;
 	Weinbergstatus status; 
 	
 	/**
@@ -12,7 +12,7 @@ public class Status {
 	 */
 	public Status() {
 		this.status = Weinbergstatus.WINTERRUHE; 
-		this.prozent = 0.0; 
+		this.prozent = 0; 
 	}
 	
 	/**
@@ -21,7 +21,7 @@ public class Status {
 	 */
 	public Status(Weinbergstatus status) {
 		this.status = status; 
-		this.prozent = 0.0; 
+		this.prozent = 0; 
 	}
 	
 	/**
@@ -29,7 +29,7 @@ public class Status {
 	 * @param status
 	 * @param prozent
 	 */
-	public Status(Weinbergstatus status, double prozent) {
+	public Status(Weinbergstatus status, int prozent) {
 		this.status = status; 
 		this.prozent = prozent; 
 	}
@@ -38,7 +38,7 @@ public class Status {
 	 * Wert der Variablen prozent wird verändert
 	 * @param prozent
 	 */
-	public void setProzent(double prozent) {
+	public void setProzent(int prozent) {
 		this.prozent = prozent; 
 	}
 	
@@ -47,7 +47,7 @@ public class Status {
 	 * @param status
 	 * @param prozent
 	 */
-	public void setStatus(Weinbergstatus status, double prozent) {
+	public void setStatus(Weinbergstatus status, int prozent) {
 		this.status = status; 
 		this.prozent = prozent; 
 	}
@@ -58,14 +58,14 @@ public class Status {
 	 */
 	public void setStatus(Weinbergstatus status) {
 		this.status = status; 
-		this.prozent = 0.0; 
+		this.prozent = 0; 
 	}
 	
 	/**
 	 * Gibt prozent wert zurück
 	 * @return
 	 */
-	public double getProzent() {
+	public int getProzent() {
 		return prozent;
 	}
 	

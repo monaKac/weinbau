@@ -103,7 +103,7 @@ public class Feldarbeiter extends JFrame {
 				if (inKommentar.isEditable()==false)
 				inKommentar.setText(selectedWeinberg.getKommentar());
 			}
-		}, 0, 1800);
+		}, 0, 1000);
 		    
 		this.setVisible(true);
 		

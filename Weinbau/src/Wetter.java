@@ -64,7 +64,7 @@ public class Wetter {
 	 *  Gibt den Wert der Variable Wind zurück
 	 * @return
 	 */
-	public double getWind() {
+	public int getWind() {
 		return wind;
 	}
 	
@@ -80,7 +80,7 @@ public class Wetter {
 	 * Gibt die Temperatur zurück
 	 * @return
 	 */
-	public double getTemp() {
+	public int getTemp() {
 		return temp;
 	}
 	
@@ -96,7 +96,7 @@ public class Wetter {
 	 * Gibt die Anzahl der Sonnenstunden zurück
 	 * @return
 	 */
-	public double getSonnenstunden() {
+	public int getSonnenstunden() {
 		return sonnenstunden;
 	}
 	

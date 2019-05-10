@@ -4,8 +4,8 @@
  *
  */
 public class Pflanzen {
-	private double zuckergehalt; // in g
-	private double groesse;   // in m
+	private int zuckergehalt; // in g
+	private int groesse;   // in m
 	private boolean krankheit;
 	private int id; 
 	private static int nextId = 1; 
@@ -16,7 +16,7 @@ public class Pflanzen {
 	 * @param groesse
 	 * @param krank
 	 */
-	public Pflanzen(double zuckergehalt, double groesse, boolean krank) {
+	public Pflanzen(int zuckergehalt, int groesse, boolean krank) {
 		this.zuckergehalt = zuckergehalt;
 		this.groesse = groesse; 
 		this.krankheit = krank; 
@@ -28,7 +28,7 @@ public class Pflanzen {
 	 * Gibt Zuckergehalt der Pflanze zurück
 	 * @return
 	 */
-	public double getZuckergehalt() {
+	public int getZuckergehalt() {
 		return zuckergehalt;
 	}
 	
@@ -36,7 +36,7 @@ public class Pflanzen {
 	 * Setzt den Zuckergehalt auf den übergebenen double Wert
 	 * @param zuckergehalt
 	 */
-	public void setZuckergehalt(double zuckergehalt) {
+	public void setZuckergehalt(int zuckergehalt) {
 		this.zuckergehalt = zuckergehalt;
 	}
 	
@@ -44,7 +44,7 @@ public class Pflanzen {
 	 * Gibt die Größe der Pflanze zurück
 	 * @return
 	 */
-	public double getGroesse() {
+	public int getGroesse() {
 		return groesse;
 	}
 	
@@ -52,7 +52,7 @@ public class Pflanzen {
 	 * Setzt die Größe der Pflanze auf den übergebenen double Wert
 	 * @param groesse
 	 */
-	public void setGroesse(double groesse) {
+	public void setGroesse(int groesse) {
 		this.groesse = groesse;
 	}
 	
