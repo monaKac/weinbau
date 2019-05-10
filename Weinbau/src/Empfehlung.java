@@ -111,7 +111,7 @@ public class Empfehlung {
 			return text;
 		} else {
 
-			text = "Bitte in Phase " + this.empfehlungsStatus.toString() + " uebergehen.";
+			text = "Bitte in Phase " + this.empfehlungsStatus.getWeinbergstatus().toString() + " uebergehen.";
 
 			return text;
 		}
@@ -420,7 +420,7 @@ public class Empfehlung {
 		double groesse;
 		double zuckergehalt;
 		if (weinberg.getPflanzenGroesse() < 2 ) {  //Zahlen fuer Groesse sind noch festzulegen
-			text = "Pflanzen sind noch nicht groß genug um geerntet zu werden";
+			text = "Pflanzen sind noch nicht groï¿½ genug um geerntet zu werden";
 		}
 		if (weinberg.getZuckergehalt() < 111 ) {
 			text = "Zuckergehalt der Pflanzen noch nicht hoch genug";

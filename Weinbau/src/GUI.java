@@ -7,6 +7,8 @@ import java.awt.event.ActionListener;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
+import java.util.Timer;
+import java.util.TimerTask;
 
 public class GUI extends JFrame {
 
@@ -37,27 +39,36 @@ public class GUI extends JFrame {
 		gui.setVisible(true);
 		gui.setSize(800, 800);
 	}
-
+	
 	public JPanel createPanel(Weinberg w) {
-		JPanel panel = new JPanel(new BorderLayout());
-		panel.add(new JLabel("Weinberg" + w.getId()), BorderLayout.NORTH);
-		JButton button = new JButton("Öffnen");
-		button.addActionListener(new ActionListener() {
+        JPanel panel = new JPanel(new BorderLayout());
+        //Name
+        
+        JLabel wname = new JLabel(w.getName());
+        wname.setFont(new Font("Serim", Font.BOLD, 25));
+        panel.add(wname, BorderLayout.NORTH);
+        JPanel centerpanel = new JPanel(new GridLayout(10,1));
+        centerpanel.add(new JLabel("Status: " + w.getStatus().getWeinbergstatus()));
+        centerpanel.add(new JLabel("Kommentar der Feldarbeiter: " + w.getKommentar()));
+        //Oeffnen button
+        JButton button = new JButton("Oeffnen");
+        button.addActionListener(new ActionListener() {
 
-			public void actionPerformed(ActionEvent e) {
-				GUI.initialisiere2(w);
-			}
-		});
-		panel.add(button, BorderLayout.SOUTH);
+            public void actionPerformed(ActionEvent e) {
+                GUI.initialisiere2(w);
+            }
+        });
+        panel.add(button, BorderLayout.SOUTH);
 
-		// WARNUNGEN HIER HINZUFÜGEN (BorderLayout CENTER)
-		Empfehlung empfehlung = new Empfehlung(w, 10);
-		if (empfehlung.getText() != null) {
-			panel.add(new JLabel(empfehlung.getText()), BorderLayout.CENTER);
-		}
+        // WARNUNGEN HIER HINZUFÃœGEN (BorderLayout CENTER)
+        Empfehlung empfehlung = new Empfehlung(w, datum);
+        if (empfehlung.getText() != null) {
+            centerpanel.add(new JLabel("Empfehlung: " + empfehlung.getText()));
+        }
+        panel.add(centerpanel);
+        return panel;
+    }
 
-		return panel;
-	}
 
 	public void fenster1(Winzer winzer) {
 
@@ -85,7 +96,7 @@ public class GUI extends JFrame {
 		Color background = Color.WHITE;
 		c.setBackground(background);
 
-		Wetter wetter = Datenbank.getWetter(datum, weinberg); // Datum ändern
+		Wetter wetter = Datenbank.getWetter(datum, weinberg); // Datum ï¿½ndern
 
 		JPanel eins, zwei, drei, vier;
 
@@ -106,7 +117,27 @@ public class GUI extends JFrame {
 		eins.add(wstatus);
 
 		// Kommentar Feldarbeiter
-		eins.add(new JLabel("Kommentar der Feldarbeiter: " + weinberg.getKommentar()));
+		JTextField inKommentar = new JTextField();
+		JButton btnKommentar = new JButton("Kommentar beareiten");
+		inKommentar.setText(weinberg.getKommentar());
+		inKommentar.setEditable(false);
+		btnKommentar.addActionListener(new ActionListener(){
+			public void actionPerformed(ActionEvent e) {
+				if(inKommentar.isEditable()) {
+					inKommentar.setEditable(false);
+					btnKommentar.setText("Kommentar bearbeiten");
+					weinberg.setKommentar(inKommentar.getText()); 
+				}else {
+					inKommentar.setEditable(true);
+					btnKommentar.setText("Kommentar speichern");
+				}
+			}
+		});
+
+		
+		eins.add(new JLabel("Kommentar"));
+		eins.add(inKommentar);
+		eins.add(btnKommentar);
 
 		// Panel 2 Wetterdaten
 		//
@@ -114,7 +145,7 @@ public class GUI extends JFrame {
 		//
 		zwei = new JPanel(new BorderLayout());
 
-		// Überschrift
+		// ï¿½berschrift
 		JLabel wwetter = new JLabel("Wetter:");
 		wwetter.setFont(new Font("Serim", Font.BOLD, 20));
 		zwei.add(wwetter, BorderLayout.NORTH);
@@ -199,7 +230,7 @@ public class GUI extends JFrame {
 		vier.add(new JLabel(" "));
 		vier.add(new JLabel("Zuckergehalt: " + weinberg.getZuckergehalt()));
 		vier.add(new JLabel(" "));
-		vier.add(new JLabel("Größe der Pflanzen: " + weinberg.getPflanzenGroesse()));
+		vier.add(new JLabel("Grï¿½ï¿½e der Pflanzen: " + weinberg.getPflanzenGroesse()));
 		vier.add(new JLabel(" "));
 		JButton duengen = new JButton("Duengen");
 		vier.add(duengen);
@@ -213,6 +244,16 @@ public class GUI extends JFrame {
 		c.add(zwei);
 		c.add(drei);
 		c.add(vier);
+		
+		Timer timerKommentar = new Timer();
+		timerKommentar.schedule(new TimerTask() {
+			
+			@Override
+			public void run() {
+				if (inKommentar.isEditable()==false)
+				inKommentar.setText(weinberg.getKommentar());
+			}
+		}, 0, 1000);
 	}
 
 	public String findmyicon(Bewoelkung eingabe) {
