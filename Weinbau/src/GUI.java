@@ -39,27 +39,36 @@ public class GUI extends JFrame {
 		gui.setVisible(true);
 		gui.setSize(800, 800);
 	}
-
+	
 	public JPanel createPanel(Weinberg w) {
-		JPanel panel = new JPanel(new BorderLayout());
-		panel.add(new JLabel("Weinberg" + w.getId()), BorderLayout.NORTH);
-		JButton button = new JButton("Oeffnen");
-		button.addActionListener(new ActionListener() {
+        JPanel panel = new JPanel(new BorderLayout());
+        //Name
+        
+        JLabel wname = new JLabel(w.getName());
+        wname.setFont(new Font("Serim", Font.BOLD, 25));
+        panel.add(wname, BorderLayout.NORTH);
+        JPanel centerpanel = new JPanel(new GridLayout(10,1));
+        centerpanel.add(new JLabel("Status: " + w.getStatus().getWeinbergstatus()));
+        centerpanel.add(new JLabel("Kommentar der Feldarbeiter: " + w.getKommentar()));
+        //Oeffnen button
+        JButton button = new JButton("Oeffnen");
+        button.addActionListener(new ActionListener() {
 
-			public void actionPerformed(ActionEvent e) {
-				GUI.initialisiere2(w);
-			}
-		});
-		panel.add(button, BorderLayout.SOUTH);
+            public void actionPerformed(ActionEvent e) {
+                GUI.initialisiere2(w);
+            }
+        });
+        panel.add(button, BorderLayout.SOUTH);
 
-		// WARNUNGEN HIER HINZUF�GEN (BorderLayout CENTER)
-		Empfehlung empfehlung = new Empfehlung(w, 10);
-		if (empfehlung.getText() != null) {
-			panel.add(new JLabel(empfehlung.getText()), BorderLayout.CENTER);
-		}
+        // WARNUNGEN HIER HINZUFÜGEN (BorderLayout CENTER)
+        Empfehlung empfehlung = new Empfehlung(w, datum);
+        if (empfehlung.getText() != null) {
+            centerpanel.add(new JLabel("Empfehlung: " + empfehlung.getText()));
+        }
+        panel.add(centerpanel);
+        return panel;
+    }
 
-		return panel;
-	}
 
 	public void fenster1(Winzer winzer) {
 
