@@ -2,6 +2,11 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import org.junit.jupiter.api.Test;
 
+/**
+ * Hier werden verschiedene Wetter-Objekte erzeugt
+ * @author marcogoette
+ *
+ */
 public class TestWetter {
 	
 	@Test
