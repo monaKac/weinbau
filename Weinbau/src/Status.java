@@ -93,4 +93,42 @@ public class Status {
 		}
 	}
 	
+	public void naechsterStatus() {
+		switch (this.status) {
+		case WINTERRUHE:
+			this.status = Weinbergstatus.REBSCHNITT; 
+			this.prozent = 0; 
+			break;
+		case REBSCHNITT:
+			this.status = Weinbergstatus.REBERZIEHUNG; 
+			this.prozent = 0; 
+			break;
+		case REBERZIEHUNG:
+			this.status = Weinbergstatus.BODENARBEIT; 
+			this.prozent = 0; 
+			break;
+		case BODENARBEIT:
+			this.status = Weinbergstatus.PFLANZENSCHUTZ; 
+			this.prozent = 0; 
+			break;
+		case PFLANZENSCHUTZ:
+			this.status = Weinbergstatus.BEFRUCHTUNG; 
+			this.prozent = 0; 
+			break;
+		case BEFRUCHTUNG:
+			this.status = Weinbergstatus.LAUBARBEIT; 
+			this.prozent = 0; 
+			break;
+		case LAUBARBEIT:
+			this.status = Weinbergstatus.ERNTE; 
+			this.prozent = 0; 
+			break;
+		case ERNTE:
+			this.status = Weinbergstatus.WINTERRUHE; 
+			this.prozent = 0; 
+			break;
+
+		}
+	}
+	
 }

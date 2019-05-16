@@ -1,4 +1,5 @@
 import java.awt.Container;
+import java.awt.Font;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -11,6 +12,7 @@ import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.WindowConstants;
 
@@ -31,15 +33,42 @@ public class Feldarbeiter extends JFrame {
 		winzer.getWeinberge().forEach(weinberg -> comboWeinberg.addItem(weinberg));
 		selectedWeinberg = winzer.getWeinberge().get(0); 
 		
-
-
-		c.setLayout(new GridLayout(11, 1));
+		c.setLayout(new GridLayout(12, 1));
 		
-		c.add(new JLabel("Weinberg"));
+		JLabel title = new JLabel("Weinberg");
+		title.setFont(new Font("Serim", Font.BOLD, 25));
+		c.add(title);
 		c.add(comboWeinberg);
 		
 		JLabel lablStatus = new JLabel("Aktueller Status : " + selectedWeinberg.getStatus().getWeinbergstatus().toString()+ " "+ selectedWeinberg.getStatus().getProzent()+" %");
 		c.add(lablStatus);
+		
+		JPanel panlStatus = new JPanel();
+		JTextField inStatus = new JTextField(); 
+		inStatus.setVisible(false);
+		inStatus.setEditable(false);
+		JButton btnStatus = new JButton("Prozent anpassen");
+		btnStatus.addActionListener(new ActionListener(){
+			public void actionPerformed(ActionEvent e) {
+				if(inStatus.isEditable()) {
+					int prozent = Integer.parseInt(inStatus.getText());
+					selectedWeinberg.getStatus().setProzent(prozent);
+					inStatus.setEditable(false);
+					inStatus.setVisible(false);
+					btnStatus.setText("Prozent anpassen");
+					inStatus.setText("");
+				}else {
+					inStatus.setText(String.valueOf(selectedWeinberg.getStatus().getProzent()));
+					inStatus.setEditable(true);
+					btnStatus.setText("Prozent speichern");
+					inStatus.setVisible(true);
+				}
+			}
+				});
+		
+		panlStatus.add(inStatus);
+		panlStatus.add(btnStatus);
+		c.add(panlStatus);
 		
 		JLabel lablBodenfeuchtigkeit = new JLabel("Bodenfeuchtigkeit : "+ selectedWeinberg.getBodenfeuchtigkeit());
 		JLabel lablMineraliengehalt = new JLabel("Mineraliengehalt : "+ selectedWeinberg.getMineraliengehalt());
@@ -88,6 +117,10 @@ public class Feldarbeiter extends JFrame {
 		    		 lablZuckergehalt.setText("Zuckergehalt : "+ selectedWeinberg.getZuckergehalt());
 		    		 lablKrankheit.setText("Krankheit : "+selectedWeinberg.isKrank());
 		    		 inKommentar.setText(selectedWeinberg.getKommentar());
+		    		 inKommentar.setEditable(false);
+		    		 btnKommentar.setText("Kommentar bearbeiten");
+		    		 inStatus.setVisible(false);
+					btnStatus.setText("Prozent anpassen");
 		        	
 		        }
 
@@ -101,7 +134,10 @@ public class Feldarbeiter extends JFrame {
 			@Override
 			public void run() {
 				if (inKommentar.isEditable()==false)
-				inKommentar.setText(selectedWeinberg.getKommentar());
+					inKommentar.setText(selectedWeinberg.getKommentar());
+				if (inStatus.isVisible()==false)
+					lablStatus.setText("Aktueller Status : " + selectedWeinberg.getStatus().getWeinbergstatus().toString()+ " "+ selectedWeinberg.getStatus().getProzent()+" %");
+				
 			}
 		}, 0, 1000);
 		    

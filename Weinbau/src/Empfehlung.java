@@ -41,40 +41,36 @@ public class Empfehlung  {
 	 * des Weinberges die richtige Empfehlungsberechnung ein
 	 */
 	private void berechneEmpfehlung() {
-
-		empfehlungBewaesserung();
+		try {
+			empfehlungBewaesserung();
+		}catch (Exception e) {
+			e.printStackTrace();
+		}
+		
 		empfehlungDuengen();
 		try {
 
 			switch (weinberg.getStatus().getWeinbergstatus()) {
 			case WINTERRUHE:
-				// DO
-				// empfehlungWinterruhe();
+				empfehlungWinterruhe();
 				break;
 			case REBSCHNITT:
 				empfehlungRebschnitt();
-				// DO
 				break;
 			case REBERZIEHUNG:
-				// DO
 				empfehlungReberziehung();
 				break;
 			case BODENARBEIT:
-				// DO
 				empfehlungBodenarbeit();
 				break;
 			case PFLANZENSCHUTZ:
-				// DO
 				empfehlungPflanzenschutz();
 				break;
 			case BEFRUCHTUNG:
-				// DO
 				break;
 			case LAUBARBEIT:
-				// DO
 				break;
 			case ERNTE:
-				// DO
 				empfehlungErnte();
 				break;
 
@@ -171,9 +167,12 @@ public class Empfehlung  {
 	/**
 	 * Berechnet die Menge die Bewaessert werden soll
 	 * <code>this.bewaesserungsmenge</code>
+	 * berechnen der benötigten Bewaesserungsmenge in Abhängigkeit des erwarteten
+	 *  Niederschlags und der aktuellen Bodenfeuchtigkeit
+	 *  und in Abhängigkeit der benötigten Menge je nach Alter der Reben
 	 */
-	protected void empfehlungBewaesserung() {
-		if (weinberg.getBodenfeuchtigkeit() > 50) {
+	protected void empfehlungBewaesserung() throws Exception{
+		if (weinberg.getBodenfeuchtigkeit() > weinberg.getStatus().getWeinbergstatus().getMinBodenfeuchtigkeit()) {
 			this.bewaesserungsmenge = 0;
 			return;
 		}
@@ -181,24 +180,16 @@ public class Empfehlung  {
 			this.warnung = true;
 		}
 
-		// berechnen wahrscheinlicher Niederschlag, Sonnenstunden und Temperatur über
-		// nächsten 7 Tage
 		int niederschlag = 0;
 		int sonnenstunden = 0;
 		int temperatur = 0;
-		try {
+
 			int tage = 7;
 			niederschlag = this.durchschnittNiederschlag(tage);
 			sonnenstunden = this.durchschnitSonnenstunden(tage);
 			temperatur = this.durchschnittTemp(tage);
 
-		} catch (Exception e) {
 
-		}
-
-		// berechnen der benötigten Bewaesserungsmenge in Abhängigkeit des erwarteten
-		// Niederschlags und der aktuellen Bodenfeuchtigkeit
-		// und in Abhängigkeit der benötigten Menge je nach Alter der Reben
 		// if alter < 2 Jahre
 		if (weinberg.getAlter() < 24)
 			bewaesserungsmenge = (int) (((1 - weinberg.getBodenfeuchtigkeit() * 0.01) * 1500) - niederschlag);
@@ -206,7 +197,6 @@ public class Empfehlung  {
 		if (weinberg.getAlter() > 24)
 			bewaesserungsmenge = (int) (((1 - weinberg.getBodenfeuchtigkeit() * 0.01) * 1000) - niederschlag);
 
-		// Temperatur und Sonnenstunden einberechnen
 		if (temperatur < 15) {
 			// zu vernachlässigende Verdunstung
 		} else if (temperatur < 25) {
@@ -222,7 +212,10 @@ public class Empfehlung  {
 		} else {
 			bewaesserungsmenge = (int) (bewaesserungsmenge * 1.3);
 		}
-
+		
+		if (bewaesserungsmenge < 0 ) {
+			bewaesserungsmenge = 0; 
+		}
 	}
 
 	/**
@@ -230,26 +223,34 @@ public class Empfehlung  {
 	 */
 	protected void empfehlungDuengen() {
 		int mineralien = this.weinberg.getMineraliengehalt();
-		if (mineralien > 50) {
+		if (mineralien > weinberg.getStatus().getWeinbergstatus().getMineraliengehalt()) {
 			this.duengen = 0;
 			return;
 		}
 		if (mineralien < 15) {
 			this.warnung = true;
 		}
-		double niederschlag = 0.0;
-
-		try {
-			int tage = 2;
-			niederschlag = this.durchschnittNiederschlag(tage);
-
-		} catch (Exception e) {
-
-		}
-
-		// if( niederschlag>800) {
+		
 		this.duengen = (100 - mineralien) * 3 * (1 + this.weinberg.getPflanzen().size());
-
+		if (duengen < 0) {
+			duengen = 0; 
+		}
+	}
+	
+	/**
+	 * Übergang von Winteruhe zu Rebschnitt sobald Austrieb beginnt. 
+	 * ( durchschnittliche Tagestemperatur von 8 bis 10 C )
+	 * @throws Exception
+	 */
+	protected void empfehlungWinterruhe() throws Exception {
+		this.empfehlungsStatus = weinberg.getStatus(); 
+		this.text = "Sobald der Austrieb beginnt sollte zum Rebschnitt übergegangen werden";
+		if (weinberg.getStatus().getProzent() == 100) {
+			int temperatur = this.durchschnittTemp(7);
+			if (temperatur > this.weinberg.getStatus().getWeinbergstatus().getMinTemperatur() && temperatur < this.weinberg.getStatus().getWeinbergstatus().getMaxTemperatur()) {
+				this.empfehlungsStatus = new Status(Weinbergstatus.REBSCHNITT);
+			}
+		}
 	}
 
 	/**
@@ -261,8 +262,8 @@ public class Empfehlung  {
 	protected void empfehlungRebschnitt() throws Exception {
 		this.empfehlungsStatus = weinberg.getStatus();
 		if (weinberg.getStatus().getProzent() == 100) {
-			double niederschlag = this.durchschnittNiederschlag(7);
-			if (niederschlag > 1000)
+			int niederschlag = this.durchschnittNiederschlag(7);
+			if (niederschlag > weinberg.getStatus().getWeinbergstatus().getMinNiederschlag())
 				this.empfehlungsStatus = new Status(Weinbergstatus.REBERZIEHUNG);
 		}
 	}
@@ -279,16 +280,16 @@ public class Empfehlung  {
 			return;
 		}
 		double bodenfeuchtigkeit = this.weinberg.getBodenfeuchtigkeit();
-		if (bodenfeuchtigkeit < 35)
+		if (bodenfeuchtigkeit < weinberg.getStatus().getWeinbergstatus().getMinBodenfeuchtigkeit())
 			this.text = "Der Boden ist noch zu trocken um zur Bodenarbeit überzugehen";
-		if (bodenfeuchtigkeit > 50)
+		if (bodenfeuchtigkeit > weinberg.getStatus().getWeinbergstatus().getMaxBodenfeuchtigkeit())
 			this.text = "Der Boden ist noch zu  feucht um zur Bodenarbeit überzugehen";
-		if (bodenfeuchtigkeit > 35 && bodenfeuchtigkeit < 50) {
+		if (bodenfeuchtigkeit > weinberg.getStatus().getWeinbergstatus().getMinBodenfeuchtigkeit() && bodenfeuchtigkeit < weinberg.getStatus().getWeinbergstatus().getMaxBodenfeuchtigkeit()) {
 			this.text = "Das Wetter ist zu regnerisch um zur Bodenarbeit überzugehen";
 			boolean starkRegen = false;
 			for (int i = 0; i < 7; i++) {
 				Wetter wetter = wettervorhersage[i];
-				if (wetter.getNiederschlag() > 7000)
+				if (wetter.getNiederschlag() > weinberg.getStatus().getWeinbergstatus().getMaxNiederschlag())
 					starkRegen = true;
 			}
 			if (starkRegen == false) {
@@ -312,9 +313,9 @@ public class Empfehlung  {
 			double sonnenstunden = this.durchschnitSonnenstunden(tage);
 			double temperatur = this.durchschnittTemp(tage);
 			text="Das Wetter ist nicht geeignet um zu Pflanzenschutz ueberzugehen"; 
-			if (temperatur > 9) {
-				if (sonnenstunden > 6) {
-					if (niederschlag > 800) {
+			if (temperatur > weinberg.getStatus().getWeinbergstatus().getMinTemperatur()) {
+				if (sonnenstunden > weinberg.getStatus().getWeinbergstatus().getSonnenstunden()) {
+					if (niederschlag > weinberg.getStatus().getWeinbergstatus().getMinNiederschlag()) {
 						this.empfehlungsStatus = new Status(Weinbergstatus.PFLANZENSCHUTZ);
 					}
 				}
@@ -329,7 +330,7 @@ public class Empfehlung  {
 	 * Es wird je nach Wetter 4-7 mal Pflanzenschutzmittel gespritzt 
 	 * 
 	 */
-	protected void empfehlungPflanzenschutz() {
+	protected void empfehlungPflanzenschutz() throws Exception{
 		this.empfehlungsStatus = weinberg.getStatus();
 		String hoheGefahr = "Achtung hohe Gefahr von Pilzkrankheiten";
 		String gefahr = "Achtung erhöhte Gefahr von Pilzrkrankheiten";
@@ -339,21 +340,20 @@ public class Empfehlung  {
 			return;
 		}
 		this.empfehlungsStatus = new Status(Weinbergstatus.PFLANZENSCHUTZ);
-		double niederschlag = 0, sonnenstunden = 0, temperatur = 0;
-		try {
+		int niederschlag = 0, sonnenstunden = 0, temperatur = 0;
+
 			int tage = 3;
 			niederschlag = this.durchschnittNiederschlag(tage);
 			sonnenstunden = this.durchschnitSonnenstunden(tage);
 			temperatur = this.durchschnittTemp(tage);
-		} catch (Exception e) {
 
-		}
-		if (weinberg.getBodenfeuchtigkeit() >= 50) {
-			if (sonnenstunden < 5 && niederschlag > 1000 && temperatur < 16) {
+		int mittlereBodenfeuchtigkeit = (int) ((weinberg.getStatus().getWeinbergstatus().getMaxBodenfeuchtigkeit()+weinberg.getStatus().getWeinbergstatus().getMinBodenfeuchtigkeit())/2);
+		if (weinberg.getBodenfeuchtigkeit() >= mittlereBodenfeuchtigkeit) {
+			if (sonnenstunden < (weinberg.getStatus().getWeinbergstatus().getSonnenstunden()*0.5) && niederschlag > (weinberg.getStatus().getWeinbergstatus().getMaxNiederschlag()) && temperatur < (weinberg.getStatus().getWeinbergstatus().getMinTemperatur())) {
 				// Achtung hohe Gefahr von Pilzkrankheiten
 				this.text = hoheGefahr;
 				this.warnung = true;
-			} else if (sonnenstunden < 7 && niederschlag > 700 && temperatur < 16) {
+			} else if (sonnenstunden < (weinberg.getStatus().getWeinbergstatus().getSonnenstunden()*0.07) && niederschlag > (weinberg.getStatus().getWeinbergstatus().getMaxNiederschlag()*0.7) && temperatur < weinberg.getStatus().getWeinbergstatus().getMinTemperatur()) {
 				// Achtung erhöhte Gefahr von Pilzkrankheiten
 				this.text = gefahr;
 			} else {
@@ -362,11 +362,11 @@ public class Empfehlung  {
 			}
 
 		} else {
-			if (sonnenstunden < 5 && niederschlag > 2000 && temperatur < 16) {
+			if (sonnenstunden < (weinberg.getStatus().getWeinbergstatus().getSonnenstunden()*0.5) && niederschlag > (weinberg.getStatus().getWeinbergstatus().getMaxNiederschlag()) && temperatur < weinberg.getStatus().getWeinbergstatus().getMinTemperatur()) {
 				// Achtung hohe Gefahr von Pilzkrankheiten
 				this.text = hoheGefahr;
 				this.warnung = true;
-			} else if (sonnenstunden < 7 && niederschlag > 1500 && temperatur < 16) {
+			} else if (sonnenstunden < (weinberg.getStatus().getWeinbergstatus().getSonnenstunden()*0.7) && niederschlag > weinberg.getStatus().getWeinbergstatus().getMaxNiederschlag()*0.7 && temperatur < weinberg.getStatus().getWeinbergstatus().getMinTemperatur()) {
 				// Achtung erhöhte Gefahr von Pilzkrankheiten
 				this.text = gefahr;
 			} else {
@@ -389,21 +389,18 @@ public class Empfehlung  {
 			return;
 		}
 		int tage = 7;
-		double wind = this.durchschnittWind(tage);
-		double niederschlag = this.durchschnittNiederschlag(tage);
-		double sonnenstunden = this.durchschnitSonnenstunden(tage);
-		if(wind < 20.0) {
-			text = "Nicht windig genug um zur Laubarbeit ueberzugehen";
-		if(niederschlag < 750) {
+		int niederschlag = this.durchschnittNiederschlag(tage);
+		int sonnenstunden = this.durchschnitSonnenstunden(tage);
+		if(niederschlag < this.weinberg.getStatus().getWeinbergstatus().getMinNiederschlag()) {
 			text = "Niederschlag zu gering um zur Laubarbeit ueberzugehen";
 		}
-		if(niederschlag >= 750 & sonnenstunden > 7) {
+		if(niederschlag >= this.weinberg.getStatus().getWeinbergstatus().getMinNiederschlag() & sonnenstunden > this.weinberg.getStatus().getWeinbergstatus().getSonnenstunden()) {
 			text = "Bodenfeuchtigkeit zu gering um zur Laubarbeit ueberzugehen";
 		}
-		if(wind >= 20.0 || niederschlag >= 750) {
+		if( niederschlag >= 750) {
 			this.empfehlungsStatus = new Status(Weinbergstatus.LAUBARBEIT);
 		}
-		}
+		
 		
 	}
 	
@@ -412,20 +409,23 @@ public class Empfehlung  {
 	 *Faktoren fuer den Uebergang in Ernte belaufen sich auf Zuckergehalt und Groesse der Pflanzen
 	 * 
 	 */
-	protected void empfehlungLaubarbeit() {
+	protected void empfehlungLaubarbeit() throws Exception{
 		this.empfehlungsStatus = weinberg.getStatus();
 		if (weinberg.getStatus().getProzent() < 100) {
+			if (this.durchschnittWind(3) > this.weinberg.getStatus().getWeinbergstatus().getWind() ) {
+				this.warnung = true; 
+				text ="Achtung starker Wind! Es besteht die Gefahr, dass Reben umknicken! Bitte Laubarbeit durchführen!"; 
+			}
 			return;
 		}
-		double groesse;
-		double zuckergehalt;
-		if (weinberg.getPflanzenGroesse() < 2 ) {  //Zahlen fuer Groesse sind noch festzulegen
+
+		if (weinberg.getPflanzenGroesse() < this.weinberg.getStatus().getWeinbergstatus().getGroesse() ) {  
 			text = "Pflanzen sind noch nicht gro� genug um geerntet zu werden";
 		}
-		if (weinberg.getZuckergehalt() < 111 ) {
+		if (weinberg.getZuckergehalt() < this.weinberg.getStatus().getWeinbergstatus().getZuckergehalt()  ) {
 			text = "Zuckergehalt der Pflanzen noch nicht hoch genug";
 		}
-		if (weinberg.getPflanzenGroesse() >= 2 && weinberg.getZuckergehalt() >= 111) {
+		if (weinberg.getPflanzenGroesse() >= this.weinberg.getStatus().getWeinbergstatus().getGroesse() && weinberg.getZuckergehalt() >= this.weinberg.getStatus().getWeinbergstatus().getZuckergehalt()) {
 			this.empfehlungsStatus = new Status(Weinbergstatus.ERNTE);
 		}
 
@@ -435,10 +435,13 @@ public class Empfehlung  {
 	 * Berechnet die Empfehlung fuer den Status Ernte ( Uebergang in Winterruhe)
 	 */
 	protected void empfehlungErnte() {
-		empfehlungBewaesserung(); // eventuell �berladene Methode um ben�tigte Feuchtigkeit festzulegen
+		this.empfehlungsStatus = this.weinberg.getStatus(); 
+		if ( this.weinberg.getStatus().getProzent()<100) {
+			return; 
+		}
 		Wetter wetter = wettervorhersage[1];
-		if (wetter.getTemp() > 8) { // Temperatur noch offen
-			text = "Fuer optimale Winterruhe sollte die Temperatur nicht ueber 8C betragen";
+		if (wetter.getTemp() > this.weinberg.getStatus().getWeinbergstatus().getMaxTemperatur()) { // Temperatur noch offen
+			text = "Fuer optimale Winterruhe sollte die Temperatur nicht ueber "+this.weinberg.getStatus().getWeinbergstatus().getMaxTemperatur()+"C betragen";
 		} else {
 			this.empfehlungsStatus = new Status(Weinbergstatus.WINTERRUHE);
 		}

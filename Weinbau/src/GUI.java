@@ -1,14 +1,26 @@
-import javax.imageio.ImageIO;
-import javax.swing.*;
-
-import java.awt.*;
+import java.awt.BorderLayout;
+import java.awt.Color;
+import java.awt.Container;
+import java.awt.FlowLayout;
+import java.awt.Font;
+import java.awt.Graphics;
+import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.image.BufferedImage;
-import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Timer;
 import java.util.TimerTask;
+
+import javax.imageio.ImageIO;
+import javax.swing.ImageIcon;
+import javax.swing.JButton;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
+import javax.swing.JTextField;
+import javax.swing.WindowConstants;
 
 public class GUI extends JFrame {
 
@@ -48,8 +60,10 @@ public class GUI extends JFrame {
         wname.setFont(new Font("Serim", Font.BOLD, 25));
         panel.add(wname, BorderLayout.NORTH);
         JPanel centerpanel = new JPanel(new GridLayout(10,1));
-        centerpanel.add(new JLabel("Status: " + w.getStatus().getWeinbergstatus()));
-        centerpanel.add(new JLabel("Kommentar der Feldarbeiter: " + w.getKommentar()));
+        JLabel lablStatus = new JLabel("Status: " + w.getStatus().getWeinbergstatus()+" "+w.getStatus().getProzent()+"%");
+        JLabel lablKommentar = new JLabel("Kommentar : " + w.getKommentar());
+        centerpanel.add(lablStatus);
+        centerpanel.add(lablKommentar);
         //Oeffnen button
         JButton button = new JButton("Oeffnen");
         button.addActionListener(new ActionListener() {
@@ -62,10 +76,24 @@ public class GUI extends JFrame {
 
         // WARNUNGEN HIER HINZUFÜGEN (BorderLayout CENTER)
         Empfehlung empfehlung = new Empfehlung(w, datum);
+        JLabel lablEmpfehlung = new JLabel("Empfehlung: ");
         if (empfehlung.getText() != null) {
-            centerpanel.add(new JLabel("Empfehlung: " + empfehlung.getText()));
+        	 lablEmpfehlung.setText("Empfehlung: " + empfehlung.getText());
+            centerpanel.add(lablEmpfehlung);
         }
         panel.add(centerpanel);
+        Timer timerKommentar = new Timer();
+		timerKommentar.schedule(new TimerTask() {
+			
+			@Override
+			public void run() {
+				Empfehlung empfehlung2 = new Empfehlung(w, datum); 
+				lablStatus.setText("Status: " + w.getStatus().getWeinbergstatus()+" "+w.getStatus().getProzent()+"%");
+				lablKommentar.setText("Kommentar : " + w.getKommentar());
+				lablEmpfehlung.setText("Empfelung: "+ empfehlung2.getText()); 
+				
+			}
+		}, 0, 1000);
         return panel;
     }
 
@@ -74,9 +102,13 @@ public class GUI extends JFrame {
 
 		c.removeAll();
 		c.setLayout(new GridLayout(2, 8));
-
+		
+		JPanel weinbergPanel;
+		ArrayList<JPanel> weinberge = new ArrayList<JPanel>(); 
 		for (Weinberg w : winzer.getWeinberge()) {
-			c.add(createPanel(w));
+			weinbergPanel = createPanel(w);
+			weinberge.add(weinbergPanel); 
+			c.add(weinbergPanel);
 
 		}
 
@@ -86,6 +118,7 @@ public class GUI extends JFrame {
 		option2add.add(neuerWeinberg);
 
 		c.add(option2add);
+		
 
 	}
 
@@ -104,7 +137,7 @@ public class GUI extends JFrame {
 		//
 		//
 		//
-		eins = new JPanel(new GridLayout(5, 1));
+		eins = new JPanel(new GridLayout(9, 1));
 
 		// Uberschrift/Name der Weinbergs
 		JLabel wname = new JLabel("Weinberg: " + weinberg.getName());
@@ -112,9 +145,25 @@ public class GUI extends JFrame {
 		eins.add(wname);
 
 		// Status
-		JLabel wstatus = new JLabel("Status: " + weinberg.getStatus().status.toString());
+		JLabel wstatus = new JLabel("Status: " + weinberg.getStatus().status.toString()+" "+weinberg.getStatus().getProzent()+"%");
 		wstatus.setFont(new Font("Serim", Font.PLAIN, 20));
 		eins.add(wstatus);
+		
+		//Empfehlung 
+		Empfehlung empfehlung = new Empfehlung(weinberg, datum);
+		JLabel empfehlungText = new JLabel(empfehlung.getText()); 
+		JLabel empfehlungTextBewaesserung = new JLabel(empfehlung.getTextBewaesserung()); 
+		JLabel empfehlungTextDuengen = new JLabel(empfehlung.getTextDuenger()); 
+		eins.add(empfehlungText);
+		eins.add(empfehlungTextBewaesserung);
+		eins.add(empfehlungTextDuengen);
+		JButton naechsterStatus = new JButton("naechster Status");
+		naechsterStatus.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				weinberg.getStatus().naechsterStatus();
+			}
+		});
+		eins.add(naechsterStatus); 
 
 		// Kommentar Feldarbeiter
 		JTextField inKommentar = new JTextField();
@@ -204,8 +253,9 @@ public class GUI extends JFrame {
 				for (int i = 7; i >= 0; i--) {
 
 					Wetter wetterx = Datenbank.getWetter(datum - 7 + i, weinberg);
+					System.out.println(wetterx.toString());
 					int regen = wetterx.getNiederschlag() / 100;
-					int temp = (int) wetterx.getTemp() * 4;
+					int temp =  wetterx.getTemp() * 4;
 					g.setColor(Color.BLUE);
 					g.fillRect(i * 50+10, 175 - regen, 20, regen);
 					g.setColor(Color.RED);
@@ -230,7 +280,7 @@ public class GUI extends JFrame {
 		vier.add(new JLabel(" "));
 		vier.add(new JLabel("Zuckergehalt: " + weinberg.getZuckergehalt()));
 		vier.add(new JLabel(" "));
-		vier.add(new JLabel("Gr��e der Pflanzen: " + weinberg.getPflanzenGroesse()));
+		vier.add(new JLabel("Groesse der Pflanzen: " + weinberg.getPflanzenGroesse()));
 		vier.add(new JLabel(" "));
 		JButton duengen = new JButton("Duengen");
 		vier.add(duengen);
@@ -252,6 +302,11 @@ public class GUI extends JFrame {
 			public void run() {
 				if (inKommentar.isEditable()==false)
 				inKommentar.setText(weinberg.getKommentar());
+				wstatus.setText("Status: " + weinberg.getStatus().status.toString()+" "+weinberg.getStatus().getProzent()+"%");
+				 Empfehlung empfehlung2 = new Empfehlung(weinberg, datum);
+				 empfehlungText.setText(empfehlung2.getText()); 
+				 empfehlungTextBewaesserung.setText(empfehlung2.getTextBewaesserung()); 
+				 empfehlungTextDuengen.setText(empfehlung2.getTextDuenger()); 
 			}
 		}, 0, 1000);
 	}
