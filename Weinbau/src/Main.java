@@ -1,12 +1,12 @@
 /**
  * 
  * @author marcogoette
- *
+ * Main Klasse der Anwendung hier befindet sich die main Methode und startet das Programm
  */
 public class Main {
 
 	/**
-	 * Test-Klasse der Anwendung
+	 * Main Methode der Anwendung
 	 * Hier werden 2 Datenbank für Winzer und Wetter initialisiert, die GUI-Klasse initialisiert und ein Objekt der Klasse Feldarbeiter erzeugt
 	 * @param args
 	 */

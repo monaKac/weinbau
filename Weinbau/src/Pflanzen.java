@@ -1,7 +1,7 @@
 /**
  * 
  * @author marcogoette
- *
+ * Klasse Pflanzen stellt eine Pflanze eines Weinberges dar
  */
 public class Pflanzen {
 	private int zuckergehalt; // in g

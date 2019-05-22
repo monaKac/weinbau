@@ -1,7 +1,7 @@
 /**
  * 
  * @author marcogoette
- *
+ * Klasse Wetter stellt das Wetter an einem bestimmten Tag von einem bestimmten Weinberg dar 
  */
 public class Wetter {
 	private int datum;
@@ -37,7 +37,7 @@ public class Wetter {
 	 * @param wind
 	 * @param sonnenstunden
 	 * @param regenwahrscheinlichkeit
-	 * @param niederschlagen
+	 * @param niederschlag
 	 */
 	public Wetter(int datum, Weinberg weinberg, int temp, int wind, int sonnenstunden, int regenwahrscheinlichkeit, int niederschlag) {
 		this.datum = datum;

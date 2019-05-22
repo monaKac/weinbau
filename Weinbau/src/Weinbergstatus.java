@@ -98,18 +98,24 @@ public enum Weinbergstatus {
 	 */
 	private int groesse; 
 	
+
+	
 	/**
+	 * 
 	 * Konstruktor mit Standardwerten fuer Weinbergstati
 	 * Parameter sind gewuenschte Werte des Weinbauerns 
 	 * Weinbauer kann durch individuelle Configuartion diese Werte anpassen 
-	 * @param boden minimale Bodenfeuchtigkeit
+	 * @param minBoden minimale Bodenfeuchtigkeit
+	 * @param maxBoden maximale Bodenfeuchtigkeit 
 	 * @param mineralien minimaler Mineraliengehalt
-	 * @param niederschlag  durchschnittlicher Niederschlag pro Tag
-	 * @param sonnenstunden durchschnittliche Sonnenstunden pro Tag
-	 * @param temp durchschnittliche Temperatur 
-	 * @param wind durchschnittliche Windgeschwindigkeit in km/h
+	 * @param minNiederschlag minimaler Niederschlag
+	 * @param maxNiederschlag maximaler Niederschlag
+	 * @param sonnenstunden minimale Sonnenstunden
+	 * @param minTemp minimale Temperatur
+	 * @param maxTemp maximale Temperatur
+	 * @param wind maximaler Wind
 	 * @param zuckergehalt minimaler Zuckergehalt
-	 * @param groesse minimale Groesse in cm
+	 * @param groesse minimale Groesse 
 	 */
 	private Weinbergstatus(int minBoden,int maxBoden, int mineralien, int minNiederschlag, int maxNiederschlag, int sonnenstunden, int minTemp, int maxTemp, int wind, int zuckergehalt, int groesse) {
 		this.minBodenfeuchtigkeit = minBoden;

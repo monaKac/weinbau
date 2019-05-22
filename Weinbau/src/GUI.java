@@ -22,6 +22,14 @@ import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.WindowConstants;
 
+/**
+ * 
+ * @author D074003
+ *	Hauptanwendung des Winzers ( Benutzeroberflaeche ) 
+ *	Zeigt Weinberge des Winzers an mit zugehöriger Funktion und Empfehlung 
+ *	Moeglichkeit den Status des Weinberges zu ändern 
+ *	+ Kommentarfunktion
+ */
 public class GUI extends JFrame {
 
 	int datum = 10;

@@ -3,7 +3,7 @@ import java.util.ArrayList;
 /**
  * 
  * @author marcogoette
- *
+ * Klasse Weinberg stellt einen Weinberg dar
  */
 public class Weinberg {
 	private int id;
@@ -17,31 +17,8 @@ public class Weinberg {
 	private String kommentar; 
 	private String name; 
 	
-	/**
-	 * Konstruktor der ohne Parameter einen Test-Weinberg erzeugt, welcher die jeweiligen Standardparameter besitzt
-	 */
-	public Weinberg () {
-		this(new Winzer(),new Status(),0,0);
-	}
 	
-	/**
-	 * Überladener Konstruktor welcher durch folgende Parameter aufgerufen wird
-	 * @param winzer
-	 * @param status
-	 * @param bodenfeuchtigkeit
-	 * @param mineraliengehalt
-	 */
-	public Weinberg(Winzer winzer, Status status, int bodenfeuchtigkeit, int mineraliengehalt) {
-		//this.id = //Methode um unique id zu generieren 
-		this.setWinzer(winzer);
-		this.status = status; 
-		this.bodenfeuchtigkeit = bodenfeuchtigkeit; 
-		this.id = nextId; 
-		this.setMineraliengehalt(mineraliengehalt); 
-		nextId++;  
-		this.setAlter(0);
-		pflanzen = new ArrayList<>();
-	}
+
 	
 	/**
 	 * Überladener Konstruktor, welcher durch die zusätzliche Variable alter aufgerufen wird

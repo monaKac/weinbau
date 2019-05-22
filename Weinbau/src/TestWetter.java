@@ -11,7 +11,7 @@ public class TestWetter {
 	
 	@Test
 	public void testeBerechneBewolkung() {
-		Weinberg weinberg = new Weinberg(new Winzer("test", "test"), new Status(), 50, 50);
+		Weinberg weinberg = new Weinberg(new Winzer("test", "test"), new Status(), 50, 50, 2);
 		Wetter wetter1 = new Wetter(1, weinberg, 13, 12, 8, 51, 801); 
 		assertEquals(Bewoelkung.REGEN, wetter1.getBewoelkung());
 		Wetter wetter2 = new Wetter(1, weinberg, 0, 12, 4, 51, 801); 

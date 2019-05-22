@@ -38,16 +38,7 @@ public class SchnittstelleFeldanwendung {
 		System.out.println("Starte Duengen: "+menge + "ml");
 	}
 	
-	/**
-	 * 
-	 * @param weinberg
-	 * @param status
-	 * Setzt den Status des Weinberges auf den neuen Status 
-	 */
-	public static void naechsterStatus(Weinberg weinberg, Weinbergstatus status) {
-		System.out.println("Uebergang zu naechstem Status "+ status.toString());
-		weinberg.setStatus(new Status(status));
-	}
+
 	
 	
 	

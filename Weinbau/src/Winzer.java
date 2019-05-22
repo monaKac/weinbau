@@ -3,7 +3,9 @@ import java.util.ArrayList;
 /**
  * 
  * @author marcogoette
- *
+ * Klasse Winzer stellt einen Winzer dar 
+ * Das Programm kann nur von einem Winzer gleichzeitig bedient werden 
+ * Es geht davon aus dass dieser Winzer "eingeloggt" ist 
  */
 
 public class Winzer {

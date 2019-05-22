@@ -60,7 +60,7 @@ public class TestWeinberg {
 	public void testeEquals() {
 		Winzer keinWeinberg = new Winzer("test", "Winzer"); 
 		Weinberg weinberg2 = weinberg; //gleich weinberg
-		Weinberg weinbergAnders = new Weinberg(keinWeinberg,new Status(), 50, 50); //andererWeinberg
+		Weinberg weinbergAnders = new Weinberg(keinWeinberg,new Status(), 50, 50, 2); //andererWeinberg
 		assertTrue(weinberg.equals(weinberg2));
 		assertFalse(weinberg.equals(keinWeinberg)); 
 		assertFalse(weinberg.equals(weinbergAnders)); 

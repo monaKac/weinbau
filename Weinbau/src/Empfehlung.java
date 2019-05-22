@@ -67,8 +67,10 @@ public class Empfehlung  {
 				empfehlungPflanzenschutz();
 				break;
 			case BEFRUCHTUNG:
+				empfehlungBefruchtung(); 
 				break;
 			case LAUBARBEIT:
+				empfehlungLaubarbeit();
 				break;
 			case ERNTE:
 				empfehlungErnte();
@@ -279,12 +281,13 @@ public class Empfehlung  {
 		if (weinberg.getStatus().getProzent() < 100) {
 			return;
 		}
-		double bodenfeuchtigkeit = this.weinberg.getBodenfeuchtigkeit();
+		int bodenfeuchtigkeit = this.weinberg.getBodenfeuchtigkeit();
 		if (bodenfeuchtigkeit < weinberg.getStatus().getWeinbergstatus().getMinBodenfeuchtigkeit())
 			this.text = "Der Boden ist noch zu trocken um zur Bodenarbeit überzugehen";
 		if (bodenfeuchtigkeit > weinberg.getStatus().getWeinbergstatus().getMaxBodenfeuchtigkeit())
 			this.text = "Der Boden ist noch zu  feucht um zur Bodenarbeit überzugehen";
-		if (bodenfeuchtigkeit > weinberg.getStatus().getWeinbergstatus().getMinBodenfeuchtigkeit() && bodenfeuchtigkeit < weinberg.getStatus().getWeinbergstatus().getMaxBodenfeuchtigkeit()) {
+		if (bodenfeuchtigkeit > weinberg.getStatus().getWeinbergstatus().getMinBodenfeuchtigkeit() 
+				&& bodenfeuchtigkeit < weinberg.getStatus().getWeinbergstatus().getMaxBodenfeuchtigkeit()) {
 			this.text = "Das Wetter ist zu regnerisch um zur Bodenarbeit überzugehen";
 			boolean starkRegen = false;
 			for (int i = 0; i < 7; i++) {

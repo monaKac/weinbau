@@ -1,10 +1,17 @@
 /**
  * 
  * @author marcogoette
- *
+ * Klasse Status stellt den Status des Weinberges dar 
  */
 public class Status {
+	/**
+	 * Zeigt den prozentualen Grad der Vervollständigung des Statuses dar
+	 */
 	int prozent;
+	
+	/**
+	 * Weinbergstatus enum, zeigt an in welcher Phase sich der Weinberg befindet
+	 */
 	Weinbergstatus status; 
 	
 	/**

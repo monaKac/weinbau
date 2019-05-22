@@ -16,6 +16,13 @@ import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.WindowConstants;
 
+/**
+ * 
+ * @author D074003
+ * Anwendung des Feldarbeiters (Benutzeroberflaeche) 
+ * Anzeige der Weinberge des Winzers und deren zugehoeriger Daten 
+ * + Kommentarfunktion
+ */
 public class Feldarbeiter extends JFrame {
 	/**
 	 * 
