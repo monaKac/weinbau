@@ -1,0 +1,11 @@
+Erster Entwurf Programmlogik 
+
+1. Programm starten 
+2. Daten initialiseren / aus Datenbank auslesen 
+3. Empfehlung Bewässerung & Düngen
+4. Je nach aktuellem Status Empfehlung berechnen
+5. Empfehlung Ausgeben + aktuelle Daten zum Monitoring 
+6. Aktionen durch Benutzer
+      - Kommentar schreiben 
+      - Status Weinberg ändern 
+7. Programm schließen 
