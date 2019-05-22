@@ -328,7 +328,7 @@ public class TestEmpfehlung {
 		empfehlung.setWettervorhersage(wetterTestDaten);
 		empfehlung.empfehlungBewaesserung();
 		int bewaesserungsmenge = empfehlung.sollBewaessern();
-		assertEquals(275, bewaesserungsmenge);
+		assertEquals(0, bewaesserungsmenge);
 	}
 
 	@Test
